@@ -1,0 +1,2 @@
+# The main ingredient: allow us to register toolchains other than com_google_protobuf targets
+common --incompatible_enable_proto_toolchain_resolution

@@ -1,19 +1,34 @@
 # Override http_archive for local testing
 local_repository(
-    name = "com_myorg_rules_mylang",
+    name = "toolchains_protoc",
     path = "../..",
 )
 
 #---SNIP--- Below here is re-used in the workspace snippet published on releases
 
 ######################
-# rules_mylang setup #
+# rules_protoc setup #
 ######################
-# Fetches the rules_mylang dependencies.
+# Fetches the rules_protoc dependencies.
 # If you want to have a different version of some dependency,
 # you should fetch it *before* calling this.
 # Alternatively, you can skip calling this function, so long as you've
 # already fetched all the dependencies.
-load("@com_myorg_rules_mylang//mylang:repositories.bzl", "rules_mylang_dependencies")
+load("@toolchains_protoc//protoc:repositories.bzl", "rules_protoc_dependencies")
 
-rules_mylang_dependencies()
+rules_protoc_dependencies()
+
+load("@rules_proto//proto:repositories.bzl", "rules_proto_dependencies")
+
+rules_proto_dependencies()
+
+load("@bazel_features//:deps.bzl", "bazel_features_deps")
+
+bazel_features_deps()
+
+load("@toolchains_protoc//protoc:toolchain.bzl", "protoc_toolchains")
+
+protoc_toolchains(
+    name = "protoc_toolchains",
+    version = "v25.3",
+)

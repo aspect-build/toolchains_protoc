@@ -2,3 +2,5 @@ bazel-*
 .bazelrc.user
 .idea/
 .ijwb/
+# Ignore until it is more stable
+MODULE.bazel.lock
