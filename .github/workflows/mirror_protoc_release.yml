@@ -12,7 +12,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: |
-          ./protoc/private/mirror_protoc_releases.sh
+          ./protoc/private/mirror_protoc_release.sh
           npx @bazel/buildifier protoc/private/versions.bzl
       - uses: peter-evans/create-pull-request@v5
         with:
