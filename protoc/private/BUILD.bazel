@@ -5,9 +5,3 @@ bzl_library(
     srcs = ["versions.bzl"],
     visibility = ["//protoc:__subpackages__"],
 )
-
-bzl_library(
-    name = "resolved_toolchain",
-    srcs = ["resolved_toolchain.bzl"],
-    visibility = ["//protoc:__subpackages__"],
-)

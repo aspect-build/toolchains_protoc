@@ -1,12 +1,28 @@
 # Bazel toolchain for pre-built protoc
 
+Using Protocol Buffers with Bazel has always been painful.
+
+- Nearly every Bazel user has waited for `protoc` to compile from sources many, MANY times.
+- The versioning of the protobuf module on Bazel Central Registry has fallen behind and contains many patches.
+
 protoc has always been distributed as pre-built binaries on https://github.com/protocolbuffers/protobuf/releases
 
-Bazel 7 introduced `--incompatible_enable_proto_toolchain_resolution` to allow us fetch that binary rather than re-build it!
+Bazel 7 introduced `--incompatible_enable_proto_toolchain_resolution` to allow us fetch that binary rather than re-build it! This repo simply contains a toolchain that resolves those pre-built binaries.
 
-See https://github.com/bazelbuild/examples/blob/never_compile_protoc_again/proto/README.md
+## Design
 
-## Why a separate Bazel module?
+### Questioning why Bazel is different
+
+Protobuf works fine under many build tools, using the releases and runtime libraries shipped by the protobuf team.
+Why is Bazel different?
+
+Our answer is: it should not be. The protobuf team shouldn’t have to own Bazel rules or understand bzlmod.
+As with many other tools such as Swagger and GraphQL, the Bazel community is self-sufficient to create thin layers to establish a toolchain and execute actions that perform codegen steps.
+
+This toolchain shows that there's no need to treat Bazel as a “special” build system vs. all the others that protobuf users rely on.
+https://protobuf.dev/reference/ is sufficient documentation for everyone.
+
+### Why a separate Bazel module?
 
 This belongs in rules_proto, see
 
