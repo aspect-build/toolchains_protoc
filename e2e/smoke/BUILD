@@ -4,3 +4,9 @@ proto_library(
     name = "foo_proto",
     srcs = ["foo.proto"],
 )
+
+sh_test(
+    name = "test",
+    srcs = ["test.sh"],
+    data = ["foo_proto"],
+)

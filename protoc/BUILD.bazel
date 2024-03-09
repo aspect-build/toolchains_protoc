@@ -1,16 +1,4 @@
 load("@bazel_skylib//:bzl_library.bzl", "bzl_library")
-load("//protoc/private:resolved_toolchain.bzl", "resolved_toolchain")
-
-# For stardoc to reference the files
-exports_files(["defs.bzl"])
-
-resolved_toolchain(
-    name = "resolved_toolchain",
-    # Marked manual so that `bazel test //...` passes
-    # even if no toolchain is registered.
-    tags = ["manual"],
-    visibility = ["//visibility:public"],
-)
 
 bzl_library(
     name = "repositories",
@@ -21,12 +9,6 @@ bzl_library(
         "@bazel_tools//tools/build_defs/repo:http.bzl",
         "@bazel_tools//tools/build_defs/repo:utils.bzl",
     ],
-)
-
-bzl_library(
-    name = "defs",
-    srcs = ["defs.bzl"],
-    visibility = ["//visibility:public"],
 )
 
 bzl_library(
