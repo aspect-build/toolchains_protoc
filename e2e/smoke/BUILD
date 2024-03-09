@@ -9,4 +9,5 @@ sh_test(
     name = "test",
     srcs = ["proto_descriptor_test.sh"],
     data = ["foo_proto"],
+    deps = ["@bazel_tools//tools/bash/runfiles"],
 )
