@@ -8,8 +8,8 @@ TAG=${GITHUB_REF_NAME}
 # The prefix is chosen to match what GitHub generates for source archives
 # This guarantees that users can easily switch from a released artifact to a source archive
 # with minimal differences in their code (e.g. strip_prefix remains the same)
-PREFIX="rules_protoc-${TAG:1}"
-ARCHIVE="rules_protoc-$TAG.tar.gz"
+PREFIX="toolchains_protoc-${TAG:1}"
+ARCHIVE="toolchains_protoc-$TAG.tar.gz"
 
 # NB: configuration for 'git archive' is in /.gitattributes
 git archive --format=tar --prefix=${PREFIX}/ ${TAG} | gzip > $ARCHIVE
@@ -35,7 +35,7 @@ http_archive(
     name = "toolchains_protoc",
     sha256 = "${SHA}",
     strip_prefix = "${PREFIX}",
-    url = "https://github.com/alexeagle/rules_protoc/releases/download/${TAG}/${ARCHIVE}",
+    url = "https://github.com/alexeagle/toolchains_protoc/releases/download/${TAG}/${ARCHIVE}",
 )
 EOF
 

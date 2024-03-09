@@ -52,4 +52,4 @@ common --incompatible_enable_proto_toolchain_resolution
 ```
 
 Follow instructions from the release you wish to use:
-<https://github.com/alexeagle/rules_protoc/releases>
+<https://github.com/alexeagle/toolchains_protoc/releases>

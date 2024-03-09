@@ -7,9 +7,9 @@ local_repository(
 #---SNIP--- Below here is re-used in the workspace snippet published on releases
 
 ######################
-# rules_protoc setup #
+# toolchains_protoc setup #
 ######################
-# Fetches the rules_protoc dependencies.
+# Fetches the toolchains_protoc dependencies.
 # If you want to have a different version of some dependency,
 # you should fetch it *before* calling this.
 # Alternatively, you can skip calling this function, so long as you've
