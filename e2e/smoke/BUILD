@@ -7,6 +7,6 @@ proto_library(
 
 sh_test(
     name = "test",
-    srcs = ["test.sh"],
+    srcs = ["proto_descriptor_test.sh"],
     data = ["foo_proto"],
 )

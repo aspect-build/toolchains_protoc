@@ -1,7 +1,13 @@
 {
-  "homepage": "https://github.com/alexeagle/rules_protoc",
-  "maintainers": [],
-  "repository": ["github:alexeagle/rules_protoc"],
+  "homepage": "https://github.com/alexeagle/toolchains_protoc",
+  "maintainers": [
+    {
+      "email": "alex@aspect.dev",
+      "github": "alexeagle",
+      "name": "Alex Eagle"
+    }
+  ],
+  "repository": ["github:alexeagle/toolchains_protoc"],
   "versions": [],
   "yanked_versions": {}
 }
