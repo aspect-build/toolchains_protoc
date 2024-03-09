@@ -6,6 +6,9 @@
 common --incompatible_enable_proto_toolchain_resolution
 common --@aspect_rules_py//py:interpreter_version=3.9.18
 
+# See https://github.com/bazelbuild/rules_python/issues/1069#issuecomment-1942053014
+common --action_env=RULES_PYTHON_ENABLE_PYSTAR=0
+
 # Don’t want to push a rules author to update their deps if not needed.
 # https://bazel.build/reference/command-line-reference#flag--check_direct_dependencies
 # https://bazelbuild.slack.com/archives/C014RARENH0/p1691158021917459?thread_ts=1691156601.420349&cid=C014RARENH0
