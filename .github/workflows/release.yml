@@ -8,6 +8,9 @@ on:
     tags:
       - "v*.*.*"
 
+env:
+  RULES_PYTHON_ENABLE_PYSTAR: 0
+
 jobs:
   release:
     uses: bazel-contrib/.github/.github/workflows/release_ruleset.yaml@v6

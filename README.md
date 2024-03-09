@@ -17,8 +17,8 @@ That flag ALSO decouples how each language rule locates the runtime.
 
 This repo simply contains a toolchain that resolves those pre-built binaries.
 
-A full example including several language rules like `py_proto_library` and `java_proto_library` may be found at
-https://github.com/bazelbuild/examples/tree/never_compile_protoc_again/proto
+See `examples` for several language rules like `py_proto_library` and `java_proto_library`.
+There is NO dependency on `@com_google_protobuf` anywhere.
 
 ## Design
 
