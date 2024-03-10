@@ -17,7 +17,7 @@ def _proto_extension_impl(module_ctx):
 
             # Ensure the root wins in case of differences
             if mod.is_root:
-                protoc_toolchains(toolchain.name, register = False, version = toolchain.version)
+                protoc_toolchains(toolchain.name, register = False, google_protobuf = toolchain.google_protobuf, version = toolchain.version)
                 root_name = toolchain.name
             else:
                 registrations[toolchain.name] = toolchain.version
@@ -33,6 +33,9 @@ protoc = module_extension(
                 Base name for generated repositories, allowing more than one toolchain to be registered.
                 Overriding the default is only permitted in the root module.
                 """, default = DEFAULT_REPOSITORY),
+            "google_protobuf": attr.string(doc = """A repository containing the exported 'built-in' types:
+            https://protobuf.dev/reference/protobuf/google.protobuf/
+            """),
             "version": attr.string(doc = "A tag of protocolbuffers/protobuf repository."),
         }),
     },

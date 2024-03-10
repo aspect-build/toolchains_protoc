@@ -1,7 +1,10 @@
 syntax = "proto3";
 
+import "google/protobuf/any.proto";
+
 option java_package = "proto";
 
 message Foo {
     string msg = 1;
+    repeated google.protobuf.Any details = 2;
 }

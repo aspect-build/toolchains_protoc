@@ -42,7 +42,7 @@ toolchain(
     toolchain_type = "@rules_proto//proto:toolchain_type",
 )
 """.format(
-            platform = platform,
+            platform = platform.replace("-", "_"),
             user_repository_name = repository_ctx.attr.user_repository_name,
             compatible_with = meta["compatible_with"],
         )
