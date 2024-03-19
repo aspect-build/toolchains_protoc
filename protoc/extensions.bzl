@@ -19,11 +19,11 @@ def _proto_extension_impl(module_ctx):
             if mod.is_root:
                 protoc_toolchains(toolchain.name, register = False, google_protobuf = toolchain.google_protobuf, version = toolchain.version)
                 root_name = toolchain.name
-            else:
-                registrations[toolchain.name] = toolchain.version
-    for name, version in registrations.items():
+            elif toolchain.name not in registrations.keys():
+                registrations[toolchain.name] = toolchain
+    for name, toolchain in registrations.items():
         if name != root_name:
-            protoc_toolchains(name, register = False, version = version)
+            protoc_toolchains(name, register = False, google_protobuf = toolchain.google_protobuf, version = toolchain.version)
 
 protoc = module_extension(
     implementation = _proto_extension_impl,
