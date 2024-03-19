@@ -11,7 +11,10 @@ bazel_dep(name = "rules_proto", version = "6.0.0-rc2")
 bazel_dep(name = "platforms", version = "0.0.8")
 
 protoc = use_extension("//protoc:extensions.bzl", "protoc")
-protoc.toolchain(google_protobuf = "com_google_protobuf", version = "v25.3")
+protoc.toolchain(
+    google_protobuf = "com_google_protobuf",
+    version = "v25.3",
+)
 use_repo(protoc, "com_google_protobuf", "toolchains_protoc_hub")
 
 register_toolchains("@toolchains_protoc_hub//:all")
@@ -22,7 +25,7 @@ bazel_dep(name = "aspect_rules_py", version = "0.7.1", dev_dependency = True)
 bazel_dep(name = "rules_java", version = "7.4.0", dev_dependency = True)
 bazel_dep(name = "rules_python", version = "0.31.0", dev_dependency = True)
 
-# Update to include
+# # Update to include
 # https://github.com/bazelbuild/rules_python/pull/1577
 git_override(
     module_name = "rules_python",
@@ -34,3 +37,12 @@ register_toolchains(
     "//examples/lang_toolchains:all",
     dev_dependency = True,
 )
+
+# Shows how a typical Python user fetches all the dependencies of their app, including the protobuf runtime
+pip = use_extension("@rules_python//python/extensions:pip.bzl", "pip")
+pip.parse(
+    hub_name = "pypi",
+    python_version = "3.11",
+    requirements_lock = "//examples/lang_toolchains:requirements.txt",
+)
+use_repo(pip, "pypi")

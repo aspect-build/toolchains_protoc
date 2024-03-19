@@ -1,21 +1,11 @@
-load("@aspect_rules_py//py:defs.bzl", "py_unpacked_wheel")
 load("@rules_proto//proto:defs.bzl", "proto_lang_toolchain")
-
-# See WORKSPACE.bazel for fetch instructions of "protobuf_4_25_3".
-# Turn the downloaded .whl file into a py_library-shape (provides PyInfo)
-# Avoids the need for any pip, requirements files, python interpreter for wheel unpacking, etc
-py_unpacked_wheel(
-    name = "protobuf_wheel",
-    src = "@protobuf_4_25_3//file",
-    py_package_name = "protobuf",
-)
 
 # Configure protoc to have the right arguments for generating Python stubs.
 proto_lang_toolchain(
     name = "protoc_py_toolchain",
     command_line = "--python_out=%s",
     progress_message = "Generating Python proto_library %{label}",
-    runtime = ":protobuf_wheel",
+    runtime = "@pypi//protobuf",
 )
 
 proto_lang_toolchain(
