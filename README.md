@@ -1,21 +1,26 @@
 # Bazel toolchain for pre-built protoc
 
-Using Protocol Buffers with Bazel has always been painful.
+_#NeverCompileProtocAgain_
+
+Using Protocol Buffers with Bazel has always been difficult.
 
 - Nearly every Bazel user has waited for `protoc` to compile from sources many, MANY times.
+  This universally slows down builds, especially due to issues like https://github.com/bazelbuild/bazel/issues/7095 where it is observed to be easily cache-busted.
 - The versioning of the protobuf module on Bazel Central Registry has fallen behind and contains many patches.
+  As of mid-March 2024 there are [7 patches](https://github.com/bazelbuild/bazel-central-registry/tree/main/modules/protobuf/23.1/patches)
+  which essentially constitute a fork of the protobuf repo specifically for publishing to BCR.
 - Relying on the protobuf runtime for each language from the `@com_google_protobuf` repo forces you to use
   the same version of the runtime for all languages in a monorepo, and matching protoc.
 
 The key observations:
 
 - `protoc` has always been distributed as pre-built binaries on https://github.com/protocolbuffers/protobuf/releases
-- the protobuf runtimes for each language are distributed to the appropriate package manager
+- That distribution includes the "well known types" such as `timestamp.proto`
+- The protobuf runtimes for each language are distributed to the appropriate package manager.
 
 Bazel 7 introduced `--incompatible_enable_proto_toolchain_resolution` to allow us fetch `protoc` rather than re-build it!
 That flag ALSO decouples how each language rule locates the runtime.
-
-This repo simply contains a toolchain that resolves those pre-built binaries.
+Thanks to that flag, this repo simply contains a toolchain that resolves those pre-built binaries.
 
 See `examples` for several language rules like `py_proto_library` and `java_proto_library`.
 There is NO dependency on `@com_google_protobuf` anywhere.
