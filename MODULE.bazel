@@ -39,7 +39,11 @@ register_toolchains(
 )
 
 # Shows how a typical Python user fetches all the dependencies of their app, including the protobuf runtime
-pip = use_extension("@rules_python//python/extensions:pip.bzl", "pip")
+pip = use_extension(
+    "@rules_python//python/extensions:pip.bzl",
+    "pip",
+    dev_dependency = True,
+)
 pip.parse(
     hub_name = "pypi",
     python_version = "3.11",

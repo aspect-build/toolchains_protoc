@@ -23,7 +23,7 @@ def _google_protobuf_alias_repo_impl(rctx):
 alias(name = "any_proto", actual = "@{0}//:any_proto")
 """.format(rctx.attr.alias_to))
 
-_google_protobuf_alias_repo = repository_rule(_google_protobuf_alias_repo_impl, attrs={"alias_to": attr.string()})
+_google_protobuf_alias_repo = repository_rule(_google_protobuf_alias_repo_impl, attrs = {"alias_to": attr.string()})
 
 def protoc_toolchains(name, version, google_protobuf = None, alias_to = "osx-aarch_64", register = True):
     """A utility method to load all Protobuf toolchains.
@@ -42,13 +42,14 @@ def protoc_toolchains(name, version, google_protobuf = None, alias_to = "osx-aar
 
     for platform in PROTOC_PLATFORMS.keys():
         prebuilt_protoc_repo(
-            # We must replace hyphen with underscore to workaround rules_python 
+            # We must replace hyphen with underscore to workaround rules_python
             # File "/output-base/external/rules_python~override/python/private/proto/py_proto_library.bzl", line 62, column 17, in _py_proto_aspect_impl
-            # Error in fail: Cannot generate Python code for a .proto whose path contains '-' 
+            # Error in fail: Cannot generate Python code for a .proto whose path contains '-'
             # (external/_main~protoc~toolchains_protoc_hub.osx-aarch_64/include/google/protobuf/any.proto).
             name = ".".join([name, platform.replace("-", "_")]),
             platform = platform,
-            version = version)
+            version = version,
+        )
     protoc_toolchains_repo(name = name, user_repository_name = name)
     if register:
         native.register_toolchains("@{}//:all".format(name))
