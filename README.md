@@ -25,6 +25,15 @@ Thanks to that flag, this repo simply contains a toolchain that resolves those p
 See `examples` for several language rules like `py_proto_library` and `java_proto_library`.
 There is NO dependency on `@com_google_protobuf` anywhere.
 
+## Support matrix
+
+| Language | Support | Example or Issue |
+|----------|---------|------------------|
+| Java     | Yes     | [example](./examples/java) |
+| Python   | Yes     | [example](./examples/python) |
+| Rust     |         | https://github.com/bazelbuild/rules_rust/issues/2627 |
+| Go       |         | https://github.com/bazelbuild/rules_go/issues/3895 |
+
 ## Design
 
 ### Questioning why Bazel is different
