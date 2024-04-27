@@ -35,7 +35,7 @@ http_archive(
     name = "toolchains_protoc",
     sha256 = "${SHA}",
     strip_prefix = "${PREFIX}",
-    url = "https://github.com/alexeagle/toolchains_protoc/releases/download/${TAG}/${ARCHIVE}",
+    url = "https://github.com/aspect-build/toolchains_protoc/releases/download/${TAG}/${ARCHIVE}",
 )
 EOF
 

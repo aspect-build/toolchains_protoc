@@ -4,6 +4,8 @@ _#NeverCompileProtocAgain_
 
 Using Protocol Buffers with Bazel has always been difficult.
 
+- Compiling protoc from source requires a functional C++ toolchain, which is a burden for projects that have no C++ code.
+  Also, Bazel does not ship with a hermetic toolchain, so you may have a handful of developers whose Bazel build is broken.
 - Nearly every Bazel user has waited for `protoc` to compile from sources many, MANY times.
   This universally slows down builds, especially due to issues like https://github.com/bazelbuild/bazel/issues/7095 where it is observed to be easily cache-busted.
 - The versioning of the protobuf module on Bazel Central Registry has fallen behind and contains many patches.
@@ -11,12 +13,14 @@ Using Protocol Buffers with Bazel has always been difficult.
   which essentially constitute a fork of the protobuf repo specifically for publishing to BCR.
 - Relying on the protobuf runtime for each language from the `@com_google_protobuf` repo forces you to use
   the same version of the runtime for all languages in a monorepo, and matching protoc.
+  This makes it difficult to migrate to a monorepo, allowing some applications to move from their separate repo without changing their
+  dependency versions.
 
 The key observations:
 
 - `protoc` has always been distributed as pre-built binaries on https://github.com/protocolbuffers/protobuf/releases
 - That distribution includes the "well known types" such as `timestamp.proto`
-- The protobuf runtimes for each language are distributed to the appropriate package manager.
+- The protobuf runtimes for each language are distributed to the appropriate package manager such as npm or PyPI.
 
 Bazel 7 introduced `--incompatible_enable_proto_toolchain_resolution` to allow us fetch `protoc` rather than re-build it!
 That flag ALSO decouples how each language rule locates the runtime.
@@ -47,15 +51,6 @@ As with many other tools such as Swagger and GraphQL, the Bazel community is sel
 This toolchain shows that there's no need to treat Bazel as a “special” build system vs. all the others that protobuf users rely on.
 https://protobuf.dev/reference/ is sufficient documentation for everyone.
 
-### Why a separate Bazel module?
-
-This belongs in rules_proto, see
-
-- https://github.com/bazelbuild/rules_proto/pull/205
-- https://github.com/bazelbuild/rules_proto/pull/206
-
-Getting reviews from Googlers is hard so let's not wait for them.
-
 ## Installation
 
 Make sure your `.bazelrc` contains
@@ -66,4 +61,4 @@ common --incompatible_enable_proto_toolchain_resolution
 ```
 
 Follow instructions from the release you wish to use:
-<https://github.com/alexeagle/toolchains_protoc/releases>
+<https://github.com/aspect-build/toolchains_protoc/releases>
