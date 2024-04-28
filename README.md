@@ -17,12 +17,18 @@ Using Protocol Buffers with Bazel has always been difficult.
 
 ## Support matrix
 
+Minimum versions:
+- Bazel: 7.0.0
+- rules_proto: 6.0.0
+
 | Language | Support | Example or Issue |
 |----------|---------|------------------|
 | Java     | Yes     | [example](./examples/java) |
 | Python   | Yes     | [example](./examples/python) |
 | Rust     |         | https://github.com/bazelbuild/rules_rust/issues/2627 |
 | Go       |         | https://github.com/bazelbuild/rules_go/issues/3895 |
+
+Your language missing? Please file the upstream issue and send a PR to update this table!
 
 ## Installation
 
