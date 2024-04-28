@@ -8,26 +8,12 @@ Using Protocol Buffers with Bazel has always been difficult.
   Also, Bazel does not ship with a hermetic toolchain, so you may have a handful of developers whose Bazel build is broken.
 - Nearly every Bazel user has waited for `protoc` to compile from sources many, MANY times.
   This universally slows down builds, especially due to issues like https://github.com/bazelbuild/bazel/issues/7095 where it is observed to be easily cache-busted.
-- The versioning of the protobuf module on Bazel Central Registry has fallen behind and contains many patches.
-  As of mid-March 2024 there are [7 patches](https://github.com/bazelbuild/bazel-central-registry/tree/main/modules/protobuf/23.1/patches)
-  which essentially constitute a fork of the protobuf repo specifically for publishing to BCR.
+- The protobuf Bazel module is quite complex and maintenance and support from the protobuf team has been inconsistent.
+  By using pre-built artifacts, Bazel users can follow the same well-tested as users of other build systems.
 - Relying on the protobuf runtime for each language from the `@com_google_protobuf` repo forces you to use
   the same version of the runtime for all languages in a monorepo, and matching protoc.
-  This makes it difficult to migrate to a monorepo, allowing some applications to move from their separate repo without changing their
-  dependency versions.
-
-The key observations:
-
-- `protoc` has always been distributed as pre-built binaries on https://github.com/protocolbuffers/protobuf/releases
-- That distribution includes the "well known types" such as `timestamp.proto`
-- The protobuf runtimes for each language are distributed to the appropriate package manager such as npm or PyPI.
-
-Bazel 7 introduced `--incompatible_enable_proto_toolchain_resolution` to allow us fetch `protoc` rather than re-build it!
-That flag ALSO decouples how each language rule locates the runtime.
-Thanks to that flag, this repo simply contains a toolchain that resolves those pre-built binaries.
-
-See `examples` for several language rules like `py_proto_library` and `java_proto_library`.
-There is NO dependency on `@com_google_protobuf` anywhere.
+  This makes it difficult to migrate to a monorepo, allowing some applications to move from their separate repo without
+  changing their dependency versions.
 
 ## Support matrix
 
@@ -38,7 +24,90 @@ There is NO dependency on `@com_google_protobuf` anywhere.
 | Rust     |         | https://github.com/bazelbuild/rules_rust/issues/2627 |
 | Go       |         | https://github.com/bazelbuild/rules_go/issues/3895 |
 
+## Installation
+
+Fetch this module using instructions from the release you wish to use:
+<https://github.com/aspect-build/toolchains_protoc/releases>
+
+Enable the toolchain support by adding this to `.bazelrc`:
+
+```
+# Introduced in Bazel 7.
+common --incompatible_enable_proto_toolchain_resolution
+```
+
+### For each language, follow these steps
+
+Since the user installs the proto runtimes through their existing package manager setup,
+the toolchain registration happens in your repository as well.
+
+First, fetch the official protobuf runtime that Google publishes to package registries,
+using whatever Bazel rule you chose for interacting with package managers
+(e.g. `maven_install` or `pip.parse`):
+
+- Python: https://pypi.org/project/protobuf
+- Java: https://mvnrepository.com/artifact/com.google.protobuf/protobuf-java
+- JavaScript: https://www.npmjs.com/package/protobufjs
+- Go: https://pkg.go.dev/google.golang.org/protobuf/runtime
+
+Second, declare the toolchain in a `BUILD` file. It looks like the following
+(where `LANG`, `--flag_to_protoc`, and `runtime` are replaced
+with appropriate values for the language and the label of the runtime you installed).
+
+You can choose a Bazel package where this goes; we recommend `/tools/protoc/BUILD.bazel`.
+
+```starlark
+load("@rules_proto//proto:defs.bzl", "proto_lang_toolchain")
+proto_lang_toolchain(
+    name = "protoc_LANG_toolchain",
+    command_line = "--flag_to_protoc=%s",
+    progress_message = "Generating LANG proto_library %{label}",
+    runtime = "@some-external//lib",
+)
+```
+
+Finally, in the same `BUILD` file, declare the registration target...
+
+```starlark
+toolchain(
+    name = "protoc_LANG_toolchain.registration",
+    toolchain = ":protoc_LANG_toolchain",
+    # This type should be declared by the language rules:
+    toolchain_type = "@rules_LANG//path/to/proto:toolchain_type",
+)
+```
+
+...and then register it, either in `MODULE.bazel` or `WORKSPACE`:
+
+```starlark
+register_toolchains("//tools/protoc:all")
+```
+
+See `examples` for several language rules like `py_proto_library` and `java_proto_library`.
+
+Note that there is NO dependency on `@com_google_protobuf` anywhere.
+
+### Troubleshooting
+
+What if you still see that protoc is compiling? This means that there is still a transitive dependency on the
+`com_google_protobuf` module, likely from some macro call in your `WORKSPACE` file.
+
+> TODO: explain how to track down where the `com_google_protobuf` dependency is coming from.
+
+> TODO: populate a list here of known issues in other Bazel modules.
+
 ## Design
+
+### How it works
+
+1. `protoc` has always been distributed as pre-built binaries on https://github.com/protocolbuffers/protobuf/releases
+1. That distribution includes the "well known types" such as `timestamp.proto`
+1. The protobuf runtimes for each language are distributed to the appropriate package manager such as npm or PyPI.
+1. Bazel 7 introduced `--incompatible_enable_proto_toolchain_resolution` to allow us fetch `protoc` rather than re-build it!
+  That flag ALSO decouples how each built-in language rule (Java, Python, C++, etc.) locates the runtime.
+
+Thanks to that flag, this repo simply contains a toolchain that resolves those pre-built binaries.
+In the user's repository, there's a small BUILD file where the toolchain is configured.
 
 ### Questioning why Bazel is different
 
@@ -50,15 +119,3 @@ As with many other tools such as Swagger and GraphQL, the Bazel community is sel
 
 This toolchain shows that there's no need to treat Bazel as a “special” build system vs. all the others that protobuf users rely on.
 https://protobuf.dev/reference/ is sufficient documentation for everyone.
-
-## Installation
-
-Make sure your `.bazelrc` contains
-
-```
-# Introduced in Bazel 7.
-common --incompatible_enable_proto_toolchain_resolution
-```
-
-Follow instructions from the release you wish to use:
-<https://github.com/aspect-build/toolchains_protoc/releases>
