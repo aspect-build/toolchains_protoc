@@ -12,10 +12,10 @@ PREFIX="toolchains_protoc-${TAG:1}"
 ARCHIVE="toolchains_protoc-$TAG.tar.gz"
 
 # NB: configuration for 'git archive' is in /.gitattributes
-git archive --format=tar --prefix=${PREFIX}/ ${TAG} | gzip > $ARCHIVE
+git archive --format=tar --prefix=${PREFIX}/ ${TAG} | gzip >$ARCHIVE
 SHA=$(shasum -a 256 $ARCHIVE | awk '{print $1}')
 
-cat << EOF
+cat <<EOF
 ## Using Bzlmod with Bazel 6
 
 1. Enable with \`common --enable_bzlmod\` in \`.bazelrc\`.
@@ -24,6 +24,11 @@ cat << EOF
 \`\`\`starlark
 bazel_dep(name = "toolchains_protoc", version = "${TAG:1}")
 \`\`\`
+
+protoc.toolchain(
+    version = "v26.1",
+)
+use_repo(protoc, "toolchains_protoc_hub")
 
 ## Using WORKSPACE
 
@@ -40,4 +45,4 @@ http_archive(
 EOF
 
 awk 'f;/--SNIP--/{f=1}' e2e/smoke/WORKSPACE.bazel
-echo "\`\`\`" 
+echo "\`\`\`"

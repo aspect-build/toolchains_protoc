@@ -10,14 +10,21 @@ bazel_dep(name = "bazel_skylib", version = "1.4.1")
 bazel_dep(name = "rules_proto", version = "6.0.0")
 bazel_dep(name = "platforms", version = "0.0.8")
 
-protoc = use_extension("//protoc:extensions.bzl", "protoc")
+protoc = use_extension(
+    "//protoc:extensions.bzl",
+    "protoc",
+    dev_dependency = True,
+)
 protoc.toolchain(
     google_protobuf = "com_google_protobuf",
     version = "v25.3",
 )
 use_repo(protoc, "com_google_protobuf", "toolchains_protoc_hub")
 
-register_toolchains("@toolchains_protoc_hub//:all")
+register_toolchains(
+    "@toolchains_protoc_hub//:all",
+    dev_dependency = True,
+)
 
 bazel_dep(name = "aspect_bazel_lib", version = "1.32.1", dev_dependency = True)
 bazel_dep(name = "buildifier_prebuilt", version = "6.1.2", dev_dependency = True)
