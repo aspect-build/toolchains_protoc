@@ -2,6 +2,7 @@ syntax = "proto3";
 
 import "google/protobuf/any.proto";
 
+option go_package = "example.com/foo_proto";
 option java_package = "proto";
 
 message Foo {
