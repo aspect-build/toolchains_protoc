@@ -50,3 +50,5 @@ pip.parse(
     requirements_lock = "//examples/lang_toolchains:requirements.txt",
 )
 use_repo(pip, "pypi")
+
+bazel_dep(name = "rules_go", version = "0.48.0")
