@@ -25,7 +25,7 @@ cat << EOF
 bazel_dep(name = "toolchains_protoc", version = "${TAG:1}")
 
 # Optional: choose a version of protoc rather than the latest.
-protoc = use_extension("//protoc:extensions.bzl", "protoc")
+protoc = use_extension("@toolchains_protoc//protoc:extensions.bzl", "protoc")
 protoc.toolchain(
     # Creates a repository to satisfy well-known-types dependencies such as
     # deps=["@com_google_protobuf//:any_proto"]
