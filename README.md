@@ -22,14 +22,13 @@ Minimum versions:
 - Bazel: 7.0.0
 - rules_proto: 6.0.0
 
-| Language | Support | Example or Issue                                     |
-| -------- | ------- | ---------------------------------------------------- |
-| Java     | Yes     | [example](./examples/java)                           |
-| Python   | Yes     | [example](./examples/python)                         |
-| Rust     |         | https://github.com/bazelbuild/rules_rust/issues/2627 |
-| Go       | Yes     | [example](./examples/go)                             |
+| Language | Support | Example or Issue             |
+| -------- | ------- | ---------------------------- |
+| Java     | Yes     | [example](./examples/java)   |
+| Python   | Yes     | [example](./examples/python) |
+| Go       | Yes     | [example](./examples/go)     |
 
-Your language missing? Please file the upstream issue and send a PR to update this table!
+For all other languages, see https://github.com/bazelbuild/rules_proto/discussions/213
 
 ## Installation
 
