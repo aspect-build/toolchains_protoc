@@ -18,17 +18,17 @@ Using Protocol Buffers with Bazel has always been difficult.
 ## Support matrix
 
 Minimum versions:
+
 - Bazel: 7.0.0
 - rules_proto: 6.0.0
 
-| Language | Support | Example or Issue |
-|----------|---------|------------------|
-| Java     | Yes     | [example](./examples/java) |
+| Language | Support | Example or Issue             |
+| -------- | ------- | ---------------------------- |
+| Java     | Yes     | [example](./examples/java)   |
 | Python   | Yes     | [example](./examples/python) |
-| Rust     |         | https://github.com/bazelbuild/rules_rust/issues/2627 |
-| Go       |         | https://github.com/bazelbuild/rules_go/issues/3895 |
+| Go       | Yes     | [example](./examples/go)     |
 
-Your language missing? Please file the upstream issue and send a PR to update this table!
+For all other languages, see https://github.com/bazelbuild/rules_proto/discussions/213
 
 ## Installation
 
@@ -56,42 +56,32 @@ using whatever Bazel rule you chose for interacting with package managers
 - JavaScript: https://www.npmjs.com/package/protobufjs
 - Go: https://pkg.go.dev/google.golang.org/protobuf/runtime
 
-Second, declare the toolchain in a `BUILD` file. It looks like the following
-(where `LANG`, `--flag_to_protoc`, and `runtime` are replaced
+For rulesets that need a "lang toolchain", declare one in a `BUILD` file.
+It looks like the following (where `LANG`, `--flag_to_protoc`, and `runtime` are replaced
 with appropriate values for the language and the label of the runtime you installed).
 
-You can choose a Bazel package where this goes; we recommend `/tools/protoc/BUILD.bazel`.
+You can choose a Bazel package where this goes; we recommend `/tools/toolchains/BUILD.bazel`.
 
 ```starlark
 load("@rules_proto//proto:defs.bzl", "proto_lang_toolchain")
+
 proto_lang_toolchain(
     name = "protoc_LANG_toolchain",
     command_line = "--flag_to_protoc=%s",
     progress_message = "Generating LANG proto_library %{label}",
     runtime = "@some-external//lib",
-)
-```
-
-Finally, in the same `BUILD` file, declare the registration target...
-
-```starlark
-toolchain(
-    name = "protoc_LANG_toolchain.registration",
-    toolchain = ":protoc_LANG_toolchain",
-    # This type should be declared by the language rules:
+    # This target should be declared by the language rules:
     toolchain_type = "@rules_LANG//path/to/proto:toolchain_type",
 )
 ```
 
-...and then register it, either in `MODULE.bazel` or `WORKSPACE`:
+Then register the toolchains, either in `MODULE.bazel` or `WORKSPACE`:
 
 ```starlark
-register_toolchains("//tools/protoc:all")
+register_toolchains("//tools/toolchains:all")
 ```
 
 See `examples` for several language rules like `py_proto_library` and `java_proto_library`.
-
-Note that there is NO dependency on `@com_google_protobuf` anywhere.
 
 ### Troubleshooting
 
@@ -110,7 +100,7 @@ What if you still see that protoc is compiling? This means that there is still a
 1. That distribution includes the "well known types" such as `timestamp.proto`
 1. The protobuf runtimes for each language are distributed to the appropriate package manager such as npm or PyPI.
 1. Bazel 7 introduced `--incompatible_enable_proto_toolchain_resolution` to allow us fetch `protoc` rather than re-build it!
-  That flag ALSO decouples how each built-in language rule (Java, Python, C++, etc.) locates the runtime.
+   That flag ALSO decouples how each built-in language rule (Java, Python, C++, etc.) locates the runtime.
 
 Thanks to that flag, this repo simply contains a toolchain that resolves those pre-built binaries.
 In the user's repository, there's a small BUILD file where the toolchain is configured.

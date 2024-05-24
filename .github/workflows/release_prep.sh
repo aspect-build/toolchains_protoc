@@ -23,6 +23,16 @@ cat << EOF
 
 \`\`\`starlark
 bazel_dep(name = "toolchains_protoc", version = "${TAG:1}")
+
+# Optional: choose a version of protoc rather than the latest.
+protoc = use_extension("@toolchains_protoc//protoc:extensions.bzl", "protoc")
+protoc.toolchain(
+    # Creates a repository to satisfy well-known-types dependencies such as
+    # deps=["@com_google_protobuf//:any_proto"]
+    google_protobuf = "com_google_protobuf",
+    # Pin to any version of protoc
+    version = "v26.0",
+)
 \`\`\`
 
 ## Using WORKSPACE

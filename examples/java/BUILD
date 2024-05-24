@@ -4,6 +4,6 @@ java_binary(
     main_class = "Main",
     deps = [
         "//examples:foo_java_proto",
-        "@protobuf-java_3_25_3//jar",
+        "@protobuf-java//jar",
     ],
 )
