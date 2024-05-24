@@ -24,6 +24,8 @@ GOOGLE_PROTOBUF_DEP_EDGES = {
 
 def _prebuilt_protoc_repo_impl(rctx):
     release_version = rctx.attr.version
+    if release_version == "LATEST":
+        release_version = PROTOC_VERSIONS.keys()[0]
 
     filename = "{}-{}-{}.zip".format(
         "protoc",
