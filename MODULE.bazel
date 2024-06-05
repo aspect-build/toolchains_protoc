@@ -34,6 +34,12 @@ bazel_dep(name = "rules_python", version = "0.32.2", dev_dependency = True)
 bazel_dep(name = "rules_go", version = "0.48.0", dev_dependency = True)
 bazel_dep(name = "rules_uv", version = "0.10.0", dev_dependency = True)
 
+git_override(
+    module_name = "rules_python",
+    commit = "d0e25cfb41446e481da6e85f04ad0ac5bcf7ea80",
+    remote = "https://github.com/bazelbuild/rules_python.git",
+)
+
 register_toolchains(
     "//examples/lang_toolchains:all",
     dev_dependency = True,
