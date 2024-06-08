@@ -1,5 +1,6 @@
 "Module extensions for use under bzlmod"
 
+load("@bazel_features//:features.bzl", "bazel_features")
 load(":toolchain.bzl", "protoc_toolchains")
 
 DEFAULT_REPOSITORY = "toolchains_protoc_hub"
@@ -24,6 +25,11 @@ def _proto_extension_impl(module_ctx):
     for name, toolchain in registrations.items():
         if name != root_name:
             protoc_toolchains(name, register = False, google_protobuf = toolchain.google_protobuf, version = toolchain.version)
+
+    if bazel_features.external_deps.extension_metadata_has_reproducible:
+        return module_ctx.extension_metadata(reproducible = True)
+    else:
+        return None
 
 protoc = module_extension(
     implementation = _proto_extension_impl,
