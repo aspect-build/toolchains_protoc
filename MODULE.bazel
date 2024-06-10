@@ -20,7 +20,7 @@ use_repo(protoc, "com_google_protobuf", "toolchains_protoc_hub")
 register_toolchains("@toolchains_protoc_hub//:all")
 
 # Assert no CC compilation occurs
-register_toolchains("//tools/toolchains:all")
+register_toolchains("//tools/toolchains:all", dev_dependency = True)
 
 bazel_dep(name = "aspect_bazel_lib", version = "1.32.1", dev_dependency = True)
 bazel_dep(name = "buildifier_prebuilt", version = "6.1.2", dev_dependency = True)
