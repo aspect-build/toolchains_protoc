@@ -14,6 +14,9 @@ common --action_env=RULES_PYTHON_ENABLE_PYSTAR=0
 # https://bazelbuild.slack.com/archives/C014RARENH0/p1691158021917459?thread_ts=1691156601.420349&cid=C014RARENH0
 common --check_direct_dependencies=off
 
+# Force rules_go to disable CGO even though we have a (fake) C++ toolchain registered.
+common --host_platform=//:no_cgo_host_platform
+
 # Load any settings specific to the current user.
 # .bazelrc.user should appear in .gitignore so that settings are not shared with team members
 # This needs to be last statement in this
