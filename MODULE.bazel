@@ -14,7 +14,7 @@ bazel_dep(name = "platforms", version = "0.0.10")
 protoc = use_extension("//protoc:extensions.bzl", "protoc")
 protoc.toolchain(
     google_protobuf = "com_google_protobuf",
-    version = "LATEST",
+    version = "v27.3",
 )
 use_repo(protoc, "com_google_protobuf", "toolchains_protoc_hub")
 
