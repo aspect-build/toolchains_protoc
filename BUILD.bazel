@@ -1,0 +1,7 @@
+load("@bazel_skylib//rules:build_test.bzl", "build_test")
+
+# Placeholder until there are docs tests
+build_test(
+    name = "tautology",
+    targets = ["//:BUILD.bazel"],
+)

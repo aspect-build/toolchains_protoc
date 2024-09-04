@@ -25,5 +25,6 @@ jobs:
         [
           {"bazelversion": "6.4.0"},
           {"folder": ".", "bzlmodEnabled": false},
+          {"folder": "examples", "bzlmodEnabled": false},
           {"folder": ".", "os": "windows-latest"}
         ]
