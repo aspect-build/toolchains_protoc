@@ -16,9 +16,9 @@ git archive --format=tar --prefix=${PREFIX}/ ${TAG} | gzip > $ARCHIVE
 SHA=$(shasum -a 256 $ARCHIVE | awk '{print $1}')
 
 cat << EOF
-## Using Bzlmod with Bazel 6
+## Using Bzlmod with Bazel 6 or later
 
-1. Enable with \`common --enable_bzlmod\` in \`.bazelrc\`.
+1. (Bazel 6 only) Enable with \`common --enable_bzlmod\` in \`.bazelrc\`.
 2. Add to your \`MODULE.bazel\` file:
 
 \`\`\`starlark
@@ -33,6 +33,9 @@ protoc.toolchain(
     # Pin to any version of protoc
     version = "v26.0",
 )
+use_repo(protoc, "com_google_protobuf", "toolchains_protoc_hub")
+
+register_toolchains("@toolchains_protoc_hub//:all")
 \`\`\`
 
 ## Using WORKSPACE

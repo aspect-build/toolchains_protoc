@@ -1,7 +1,7 @@
 import sys
 import unittest
 
-from examples import foo_pb2
+from _main import foo_pb2
 
 class TestCase(unittest.TestCase):
     def test_message(self):

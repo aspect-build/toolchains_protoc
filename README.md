@@ -9,7 +9,7 @@ Using Protocol Buffers with Bazel has always been difficult.
 - Nearly every Bazel user has waited for `protoc` to compile from sources many, MANY times.
   This universally slows down builds, especially due to issues like https://github.com/bazelbuild/bazel/issues/7095 where it is observed to be easily cache-busted.
 - The protobuf Bazel module is quite complex and maintenance and support from the protobuf team has been inconsistent.
-  By using pre-built artifacts, Bazel users can follow the same well-tested as users of other build systems.
+  By using pre-built artifacts, Bazel users can follow the same well-tested codepaths as users of other build systems.
 - Relying on the protobuf runtime for each language from the `@com_google_protobuf` repo forces you to use
   the same version of the runtime for all languages in a monorepo, and matching protoc.
   This makes it difficult to migrate to a monorepo, allowing some applications to move from their separate repo without

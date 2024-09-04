@@ -1,0 +1,55 @@
+"""Define a non-functional cc toolchain.
+
+To fail-fast in cases where we are forced to compile third-party C++ code,
+define a cc toolchain that doesn't work, by using 'false' as the compiler.
+See https://bazel.build/tutorials/ccp-toolchain-config
+"""
+
+load("defs.bzl", "cc_toolchain_config")
+load("@rules_proto//proto:defs.bzl", "proto_lang_toolchain")
+
+# Configure protoc to have the right arguments for generating Python stubs.
+# NB: the protobuf team intends to remove --python_out and instead use a protoc plugin for Python stub emit.
+proto_lang_toolchain(
+    name = "protoc_py_toolchain",
+    command_line = "--python_out=%s",
+    progress_message = "Generating Python proto_library %{label}",
+    runtime = "@pypi//protobuf",
+    toolchain_type = "@rules_python//python/proto:toolchain_type",
+)
+
+# Same as above, but for Java
+proto_lang_toolchain(
+    name = "protoc_java_toolchain",
+    command_line = "--java_out=%s",
+    progress_message = "Generating Java proto_library %{label}",
+    runtime = "@protobuf-java//jar",
+    toolchain_type = "@rules_java//java/proto:toolchain_type",
+)
+
+################
+# Setup a non-functional C++ toolchain, so we're assured that no C++ compilation
+# will be expected for engineers working in our repo.
+# That's the critical guarantee of toolchains_protoc
+filegroup(name = "empty")
+
+cc_toolchain_config(name = "noop_toolchain_config")
+
+cc_toolchain(
+    name = "noop_toolchain",
+    all_files = ":empty",
+    compiler_files = ":empty",
+    dwp_files = ":empty",
+    linker_files = ":empty",
+    objcopy_files = ":empty",
+    strip_files = ":empty",
+    supports_param_files = 0,
+    toolchain_config = ":noop_toolchain_config",
+    toolchain_identifier = "noop-toolchain",
+)
+
+toolchain(
+    name = "cc_toolchain",
+    toolchain = ":noop_toolchain",
+    toolchain_type = "@bazel_tools//tools/cpp:toolchain_type",
+)

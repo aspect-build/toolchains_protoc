@@ -20,10 +20,11 @@ jobs:
   test:
     uses: bazel-contrib/.github/.github/workflows/bazel.yaml@v6
     with:
-      folders: '[".", "e2e/smoke"]'
+      folders: '[".", "e2e/smoke", "examples"]'
       exclude: |
         [
           {"bazelversion": "6.4.0"},
           {"folder": ".", "bzlmodEnabled": false},
+          {"folder": "examples", "bzlmodEnabled": false},
           {"folder": ".", "os": "windows-latest"}
         ]
