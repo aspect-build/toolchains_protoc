@@ -1,0 +1,9 @@
+# The main ingredient: allow us to register toolchains other than com_google_protobuf targets
+common --incompatible_enable_proto_toolchain_resolution
+common --@aspect_rules_py//py:interpreter_version=3.9.18
+
+# See https://github.com/bazelbuild/rules_python/issues/1069#issuecomment-1942053014
+common --action_env=RULES_PYTHON_ENABLE_PYSTAR=0
+
+# Force rules_go to disable CGO even though we have a (fake) C++ toolchain registered.
+common --host_platform=//tools:no_cgo_host_platform

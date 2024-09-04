@@ -1,0 +1,57 @@
+bazel_dep(name = "toolchains_protoc", version = "0.0.0")
+bazel_dep(name = "aspect_bazel_lib", version = "2.8.1")
+bazel_dep(name = "aspect_rules_py", version = "0.7.1")
+bazel_dep(name = "rules_java", version = "7.6.5")
+bazel_dep(name = "rules_proto", version = "6.0.0")
+bazel_dep(name = "rules_python", version = "0.32.2")
+bazel_dep(name = "rules_go", version = "0.48.0")
+bazel_dep(name = "rules_uv", version = "0.10.0")
+
+# This example is in the same repo with the ruleset, so we should point to the code at HEAD
+# rather than use any release on the Bazel Central Registry.
+local_path_override(
+    module_name = "toolchains_protoc",
+    path = "..",
+)
+
+####### PROTOBUF ##########
+protoc = use_extension("@toolchains_protoc//protoc:extensions.bzl", "protoc")
+protoc.toolchain(
+    google_protobuf = "com_google_protobuf",
+    version = "v27.3",
+)
+use_repo(protoc, "com_google_protobuf", "toolchains_protoc_hub")
+
+register_toolchains("@toolchains_protoc_hub//:all")
+
+register_toolchains("//tools/toolchains:all")
+
+####### PYTHON ##########
+# Shows how a typical Python user fetches all the dependencies of their app, including the protobuf runtime
+dev_pip = use_extension("@rules_python//python/extensions:pip.bzl", "pip")
+dev_pip.parse(
+    hub_name = "pypi",
+    python_version = "3.11",
+    requirements_lock = "//tools:requirements.txt",
+)
+use_repo(dev_pip, "pypi")
+
+####### JAVA ##########
+# Note: this is simpler than using rules_jvm_external with a maven installation,
+# however it can cause version skew on the classpath if Coursier resolves a different version
+# from the constraint solution.
+# Users with a maven.install should instead do something like
+# maven.install(
+#     artifacts = [
+#         "com.google.protobuf:protobuf-java:4.27.1",
+#         "io.grpc:grpc-all:1.51.1",
+#     ],
+#     lock_file = "//:maven_install.json",
+# )
+http_jar = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "http_jar")
+
+http_jar(
+    name = "protobuf-java",
+    sha256 = "0532ad1024d62361561acaedb974d7d16889e7670b36e23e9321dd6b9d334ef9",
+    urls = ["https://repo1.maven.org/maven2/com/google/protobuf/protobuf-java/4.27.0-RC3/protobuf-java-4.27.0-RC3.jar"],
+)

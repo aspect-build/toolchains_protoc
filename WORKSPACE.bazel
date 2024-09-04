@@ -1,11 +1,1 @@
 # Marker that this is the root of a Bazel workspace.
-
-load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_jar")
-
-# Note: this is simpler than using rules_jvm_external with a maven installation,
-# but users would probably get this JAR file that way.
-http_jar(
-    name = "protobuf-java",
-    sha256 = "0532ad1024d62361561acaedb974d7d16889e7670b36e23e9321dd6b9d334ef9",
-    urls = ["https://repo1.maven.org/maven2/com/google/protobuf/protobuf-java/4.27.0-RC3/protobuf-java-4.27.0-RC3.jar"],
-)

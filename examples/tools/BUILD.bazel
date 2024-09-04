@@ -1,0 +1,18 @@
+load("@platforms//host:constraints.bzl", "HOST_CONSTRAINTS")
+load("@rules_uv//uv:pip.bzl", "pip_compile")
+
+pip_compile(
+    name = "generate_requirements_txt",
+    requirements_in = "requirements.in",
+    requirements_txt = "requirements.txt",
+)
+
+# Don't allow rules_go to compile the Go SDK with cgo enabled, as that
+# would cause a dependency on a functional C++ toolchain.
+# This value is referenced in the .bazelrc
+platform(
+    name = "no_cgo_host_platform",
+    constraint_values = HOST_CONSTRAINTS + [
+        "@rules_go//go/toolchain:cgo_off",
+    ],
+)

@@ -1,8 +1,0 @@
-load("@platforms//host:constraints.bzl", "HOST_CONSTRAINTS")
-
-platform(
-    name = "no_cgo_host_platform",
-    constraint_values = HOST_CONSTRAINTS + [
-        "@rules_go//go/toolchain:cgo_off",
-    ],
-)

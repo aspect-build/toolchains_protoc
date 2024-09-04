@@ -3,7 +3,7 @@ java_binary(
     srcs = ["Main.java"],
     main_class = "Main",
     deps = [
-        "//examples:foo_java_proto",
+        "//:foo_java_proto",
         "@protobuf-java//jar",
     ],
 )
