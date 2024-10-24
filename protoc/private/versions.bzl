@@ -51,6 +51,18 @@ PROTOC_PLATFORMS = {
 }
 
 PROTOC_VERSIONS = {
+    "v29.0-rc2": {
+        "protoc-29.0-rc-2-linux-aarch_64.zip": "sha384-9XUAHaXQ/+4eLp5pZd+GxtGbkf05Lmeg7aHvJ/CMPQpb/H2olJ6OX/Eyu8Iw5LzH",
+        "protoc-29.0-rc-2-linux-ppcle_64.zip": "sha384-Oi7fHPde2+IjRIUm8Xrv+vmFzaZ2nXtftsjC9Z5yQE9bWk8fgIEloodq842VUiV6",
+        "protoc-29.0-rc-2-linux-s390_64.zip": "sha384-6aLZW4lFckBz+aMCe3nK6V3wh537kteen0rpsyPZ+ZlnsWgjGmN4l2nIwvuzlYKa",
+        "protoc-29.0-rc-2-linux-x86_32.zip": "sha384-A9k14IX4ejU1PjODHzG3V16J6ch6dfXLcBJrHUEEnGL7ia85ANAcX/S06H67q/Fh",
+        "protoc-29.0-rc-2-linux-x86_64.zip": "sha384-Xz3RqPkN/OH3tc6sr2zOJz6RlPy+CJOT1yaDl3ddVZeSKdfC/ay1PsJyxMuWlNhf",
+        "protoc-29.0-rc-2-osx-aarch_64.zip": "sha384-GgAw/Ey4ZgQGrQlWoTVbl7bZ1hPirMdoUwNi6B1bnF/Qz78MuCBErUsDyGAtMWG+",
+        "protoc-29.0-rc-2-osx-universal_binary.zip": "sha384-1AX1Ri1aPBrTZFb3O/c5kAN3mSL6dwb08McUMfZ+0Y2LpYTWihlJOyayx009OXiW",
+        "protoc-29.0-rc-2-osx-x86_64.zip": "sha384-WjPvIZrdMjLHVLOsde02y9cDHVxOon77lMlU9LZxyZhgRLGIdpXFAVVGH73DQlZx",
+        "protoc-29.0-rc-2-win32.zip": "sha384-NnxKOAat6hkiK3UmemjnJSbRRbF9vGzDs2DIc4/28pUmJmrIFksRxQsJXF+UphqK",
+        "protoc-29.0-rc-2-win64.zip": "sha384-ODMitcA1yE2q+IjqyWS4KU65hBlJTGneEY3Fshl6SPTSSzZC0Ivca3UgNZP1cN7l",
+    },
     "v28.2": {
         "protoc-28.2-linux-aarch_64.zip": "sha384-YoCDjDiOXMmWDF127y+ssNJyzZZB0iBvahJRtg1WXaCAqwPZYINYjVc1PRFU1vye",
         "protoc-28.2-linux-ppcle_64.zip": "sha384-zqj9K/BCLXaLaHogHtxEaXaM7EZOlSDy4gdDF/IgggjC8aep7kiHYXcoI3YGxQGs",
