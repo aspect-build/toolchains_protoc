@@ -5,8 +5,8 @@ define a cc toolchain that doesn't work, by using 'false' as the compiler.
 See https://bazel.build/tutorials/ccp-toolchain-config
 """
 
-load("defs.bzl", "cc_toolchain_config")
 load("@rules_proto//proto:defs.bzl", "proto_lang_toolchain")
+load("defs.bzl", "cc_toolchain_config")
 
 # Configure protoc to have the right arguments for generating Python stubs.
 # NB: the protobuf team intends to remove --python_out and instead use a protoc plugin for Python stub emit.
