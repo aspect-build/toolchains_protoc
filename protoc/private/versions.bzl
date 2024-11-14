@@ -50,6 +50,7 @@ PROTOC_PLATFORMS = {
     },
 }
 
+# Synced from https://github.com/protocolbuffers/protobuf/releases
 PROTOC_VERSIONS = {
     "v29.0-rc2": {
         "protoc-29.0-rc-2-linux-aarch_64.zip": "sha384-9XUAHaXQ/+4eLp5pZd+GxtGbkf05Lmeg7aHvJ/CMPQpb/H2olJ6OX/Eyu8Iw5LzH",
