@@ -29,7 +29,7 @@ register_toolchains("@toolchains_protoc_hub//:all")
 # - proto_lang_toolchain rule [name]
 # - toolchain rule [name]_toolchain
 # and the second one is valid for registration.
-# Attempting to register a proto_lang_toolchain rule as a toolchain gives a baffling error like 
+# Attempting to register a proto_lang_toolchain rule as a toolchain gives a baffling error like
 # Misconfigured toolchains: //tools:protoc_java_toolchain is declared as a toolchain but has inappropriate dependencies.
 # Declared toolchains should be created with the 'toolchain' rule and should not have dependencies that themselves require toolchains.
 register_toolchains("//tools/toolchains:all")
