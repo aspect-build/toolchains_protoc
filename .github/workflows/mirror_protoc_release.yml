@@ -9,6 +9,11 @@ on:
   schedule:
     - cron: "10 6 * * *"
 
+# Allow the pull request we create to run checks
+permissions:
+  contents: write
+  actions: write
+
 jobs:
   mirror:
     runs-on: ubuntu-latest
