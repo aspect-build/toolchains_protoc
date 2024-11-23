@@ -1,7 +1,10 @@
 load("@bazel_skylib//:bzl_library.bzl", "bzl_library")
+load(":prebuilt_protoc_toolchain_test.bzl", "release_version_to_artifact_name_test_suite")
 
 bzl_library(
     name = "versions",
     srcs = ["versions.bzl"],
     visibility = ["//protoc:__subpackages__"],
 )
+
+release_version_to_artifact_name_test_suite()

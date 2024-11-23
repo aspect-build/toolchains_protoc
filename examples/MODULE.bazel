@@ -19,7 +19,7 @@ protoc = use_extension("@toolchains_protoc//protoc:extensions.bzl", "protoc")
 protoc.toolchain(
     google_protobuf = "com_google_protobuf",
     # Demonstrate overriding the default version
-    version = "v28.0",
+    version = "LATEST",
 )
 use_repo(protoc, "com_google_protobuf", "toolchains_protoc_hub")
 

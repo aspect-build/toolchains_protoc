@@ -22,15 +22,28 @@ GOOGLE_PROTOBUF_DEP_EDGES = {
     "wrappers": [],
 }
 
+def release_version_to_artifact_name(release_version, platform):
+    # versions have a "v" prefix like "v28.0"
+    stripped_version = release_version.removeprefix("v")
+
+    # release candidate versions like "v29.0-rc3" have artifact names
+    # like "protoc-29.0-rc-3-osx-x86_64.zip"
+    artifact_version = stripped_version.replace("rc", "rc-")
+
+    return "{}-{}-{}.zip".format(
+        "protoc",
+        artifact_version,
+        platform,
+    )
+
 def _prebuilt_protoc_repo_impl(rctx):
     release_version = rctx.attr.version
     if release_version == "LATEST":
         release_version = PROTOC_VERSIONS.keys()[0]
 
-    filename = "{}-{}-{}.zip".format(
-        "protoc",
-        release_version.removeprefix("v"),
-        rctx.attr.platform,
+    filename = release_version_to_artifact_name(
+        release_version,
+        rctx.attr.platform
     )
     url = "https://github.com/protocolbuffers/protobuf/releases/download/{}/{}".format(
         release_version,
