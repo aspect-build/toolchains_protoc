@@ -43,7 +43,7 @@ def _prebuilt_protoc_repo_impl(rctx):
 
     filename = release_version_to_artifact_name(
         release_version,
-        rctx.attr.platform
+        rctx.attr.platform,
     )
     url = "https://github.com/protocolbuffers/protobuf/releases/download/{}/{}".format(
         release_version,
