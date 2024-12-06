@@ -1,4 +1,11 @@
-# Bazel toolchain for pre-built protoc
+# Pre-built protoc toolchain for Bazel 7
+
+> [!CAUTION]
+> Bazel 8 and recent rules_proto changes broke this toolchain.
+> We don't currently have any plans to address this.
+> Instead, we expect someone on the protobuf team to follow through with the
+> "End Goal" promised in https://protobuf.dev/news/2024-10-01/
+> where this functionality is upstreamed.
 
 _#NeverCompileProtocAgain_
 
