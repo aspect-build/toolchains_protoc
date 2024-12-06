@@ -6,6 +6,7 @@
 > Instead, we expect someone on the protobuf team to follow through with the
 > "End Goal" promised in https://protobuf.dev/news/2024-10-01/
 > where this functionality is upstreamed.
+> Follow https://github.com/protocolbuffers/protobuf/issues/19558
 
 _#NeverCompileProtocAgain_
 
