@@ -18,13 +18,11 @@ concurrency:
 
 jobs:
   test:
-    uses: bazel-contrib/.github/.github/workflows/bazel.yaml@v6
+    uses: bazel-contrib/.github/.github/workflows/bazel.yaml@646899086d7aaee8e532540480f3e91e00596234 # Dec 11 2024
     with:
       folders: '[".", "e2e/smoke", "examples"]'
       exclude: |
         [
-          {"bazelversion": "6.4.0"},
           {"folder": ".", "bzlmodEnabled": false},
           {"folder": "examples", "bzlmodEnabled": false},
-          {"folder": ".", "os": "windows-latest"}
         ]
