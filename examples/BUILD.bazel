@@ -15,10 +15,11 @@ py_proto_library(
     deps = [":foo_proto"],
 )
 
-java_proto_library(
-    name = "foo_java_proto",
-    deps = [":foo_proto"],
-)
+# See comment in examples/tools/toolchains/BUILD.bazel
+# java_proto_library(
+#     name = "foo_java_proto",
+#     deps = [":foo_proto"],
+# )
 
 go_proto_library(
     name = "foo_go_proto",
