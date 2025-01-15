@@ -25,4 +25,5 @@ jobs:
         [
           {"folder": ".", "bzlmodEnabled": false},
           {"folder": "examples", "bzlmodEnabled": false},
+          {"bazelversion": "8.0.0", "bzlmodEnabled": false},
         ]
