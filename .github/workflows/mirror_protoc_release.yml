@@ -12,6 +12,7 @@ on:
 # Allow the pull request we create to run checks
 permissions:
   contents: write
+  pull-requests: write
   actions: write
 
 jobs:
