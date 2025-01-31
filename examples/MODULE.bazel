@@ -11,7 +11,7 @@ bazel_dep(name = "rules_uv", version = "0.52.0")
 # Pick up https://github.com/theoremlp/rules_uv/pull/207/commits
 git_override(
     module_name = "rules_uv",
-    commit = "bcf9472ece66176de7d21856e95549b4200122ad",
+    commit = "6330187e9158931d07397e92870a7d5ed12b81f3",
     remote = "https://github.com/alexeagle/rules_uv.git",
 )
 
