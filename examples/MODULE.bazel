@@ -8,6 +8,11 @@ bazel_dep(name = "rules_python", version = "1.0.0")
 bazel_dep(name = "rules_go", version = "0.52.0")
 bazel_dep(name = "rules_uv", version = "0.10.0")
 
+bazel_dep(name = "protobuf", version = "29.3")
+single_version_override(module_name = "protobuf", version = "29.3", patch_strip = 1, patches = [
+    "//:19679.patch"
+])
+
 # This example is in the same repo with the ruleset, so we should point to the code at HEAD
 # rather than use any release on the Bazel Central Registry.
 local_path_override(
@@ -20,7 +25,7 @@ protoc = use_extension("@toolchains_protoc//protoc:extensions.bzl", "protoc")
 protoc.toolchain(
     google_protobuf = "com_google_protobuf",
     # Demonstrate overriding the default version
-    version = "v28.0",
+    version = "v29.3",
 )
 use_repo(protoc, "com_google_protobuf", "toolchains_protoc_hub")
 

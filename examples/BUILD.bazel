@@ -20,13 +20,17 @@ proto_library(
 # Broken by https://github.com/protocolbuffers/protobuf/pull/19679
 # which causes building C++ code from source.
 # TODO: re-enable once protobuf honors the toolchain
-# java_proto_library(
-#     name = "foo_java_proto",
-#     deps = [":foo_proto"],
-# )
+java_proto_library(
+    name = "foo_java_proto",
+    deps = [":foo_proto"],
+)
 
 go_proto_library(
     name = "foo_go_proto",
     importpath = "example.com/foo_proto",
     proto = ":foo_proto",
 )
+
+exports_files([
+    "19679.patch",
+])
