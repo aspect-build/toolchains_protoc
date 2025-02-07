@@ -5,6 +5,10 @@ pip_compile(
     name = "generate_requirements_txt",
     requirements_in = "requirements.in",
     requirements_txt = "requirements.txt",
+    target_compatible_with = select({
+        "@platforms//os:windows": ["@platforms//:incompatible"],
+        "//conditions:default": [],
+    }),
 )
 
 # Don't allow rules_go to compile the Go SDK with cgo enabled, as that
