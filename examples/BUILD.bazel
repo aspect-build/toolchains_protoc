@@ -1,5 +1,6 @@
 load("@rules_go//proto:def.bzl", "go_proto_library")
 load("@rules_proto//proto:defs.bzl", "proto_library")
+load("@rules_python//python:proto.bzl", "py_proto_library")
 
 package(default_visibility = ["//visibility:public"])
 
@@ -9,13 +10,10 @@ proto_library(
     deps = ["@com_google_protobuf//:any_proto"],
 )
 
-# Broken because rules_python's py_proto_library doesnt produce the same
-# PyInfo symbol that py_test expects.
-# load("@rules_python//python:proto.bzl", "py_proto_library")
-# py_proto_library(
-#     name = "foo_py_proto",
-#     deps = [":foo_proto"],
-# )
+py_proto_library(
+    name = "foo_py_proto",
+    deps = [":foo_proto"],
+)
 
 # Broken by https://github.com/protocolbuffers/protobuf/pull/19679
 # which causes building C++ code from source.

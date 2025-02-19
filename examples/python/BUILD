@@ -1,6 +1,7 @@
-# See comment in examples/BUILD.bazel
-# py_test(
-#     name = "message_test",
-#     srcs = ["message_test.py"],
-#     deps = ["//:foo_py_proto"],
-# )
+load("@rules_python//python:defs.bzl", "py_test")
+
+py_test(
+    name = "message_test",
+    srcs = ["message_test.py"],
+    deps = ["//:foo_py_proto"],
+)
