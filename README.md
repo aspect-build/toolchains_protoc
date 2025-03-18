@@ -15,6 +15,20 @@ Using Protocol Buffers with Bazel has always been difficult.
   This makes it difficult to migrate to a monorepo, allowing some applications to move from their separate repo without
   changing their dependency versions.
 
+## Ensure protobuf and gRPC never built
+
+You can ensure that protobuf and grpc is never built from source by breaking the CC compilation.
+
+Simply drop this in your `.bazelrc`
+
+```
+# Ensure that we don't accidentally build protobuf or gRPC
+common --per_file_copt=external/.*protobuf.*@--PROTOBUF_WAS_NOT_SUPPOSED_TO_BE_BUILT
+common --host_per_file_copt=external/.*protobuf.*@--PROTOBUF_WAS_NOT_SUPPOSED_TO_BE_BUILT
+common --per_file_copt=external/.*grpc.*@--GRPC_WAS_NOT_SUPPOSED_TO_BE_BUILT
+common --host_per_file_copt=external/.*grpc.*@--GRPC_WAS_NOT_SUPPOSED_TO_BE_BUILT
+```
+
 ## Support matrix
 
 Minimum versions:
