@@ -6,6 +6,8 @@ See https://bazel.build/tutorials/ccp-toolchain-config
 """
 
 load("@rules_proto//proto:defs.bzl", "proto_lang_toolchain")
+load("@rules_rust//rust:defs.bzl", "rust_library_group")
+load("@rules_rust_prost//:defs.bzl", "rust_prost_toolchain")
 load("defs.bzl", "cc_toolchain_config")
 
 # Configure protoc to have the right arguments for generating Python stubs.
@@ -25,6 +27,36 @@ proto_lang_toolchain(
     progress_message = "Generating Java proto_library %{label}",
     runtime = "@protobuf-java//jar",
     toolchain_type = "@rules_java//java/proto:toolchain_type",
+)
+
+rust_library_group(
+    name = "prost_runtime",
+    deps = [
+        "@crates//:prost",
+    ],
+)
+
+rust_library_group(
+    name = "tonic_runtime",
+    deps = [
+        ":prost_runtime",
+        "@crates//:tonic",
+    ],
+)
+
+rust_prost_toolchain(
+    name = "prost_toolchain_impl",
+    prost_plugin = "@crates//:protoc-gen-prost__protoc-gen-prost",
+    prost_runtime = ":prost_runtime",
+    prost_types = "@crates//:prost-types",
+    tonic_plugin = "@crates//:protoc-gen-tonic__protoc-gen-tonic",
+    tonic_runtime = ":tonic_runtime",
+)
+
+toolchain(
+    name = "prost_toolchain",
+    toolchain = "prost_toolchain_impl",
+    toolchain_type = "@rules_rust_prost//:toolchain_type",
 )
 
 ################
@@ -48,8 +80,8 @@ cc_toolchain(
     toolchain_identifier = "noop-toolchain",
 )
 
-toolchain(
-    name = "cc_toolchain",
-    toolchain = ":noop_toolchain",
-    toolchain_type = "@bazel_tools//tools/cpp:toolchain_type",
-)
+# toolchain(
+#     name = "cc_toolchain",
+#     toolchain = ":noop_toolchain",
+#     toolchain_type = "@bazel_tools//tools/cpp:toolchain_type",
+# )

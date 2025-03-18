@@ -1,0 +1,39 @@
+load("@rules_go//proto:def.bzl", "go_proto_library")
+load("@rules_proto//proto:defs.bzl", "proto_library")
+load("@rules_rust_prost//:defs.bzl", "rust_prost_library")
+load("@protobuf//bazel:py_proto_library.bzl", "py_proto_library")
+
+package(default_visibility = ["//visibility:public"])
+
+proto_library(
+    name = "greeter_proto",
+    srcs = ["greeter.proto"],
+    deps = ["@com_google_protobuf//:any_proto"],
+)
+
+py_proto_library(
+    name = "greeter_py_proto",
+    deps = [":greeter_proto"],
+)
+
+# Broken by https://github.com/protocolbuffers/protobuf/pull/19679
+# which causes building C++ code from source.
+# TODO: re-enable once protobuf honors the toolchain
+# java_proto_library(
+#     name = "greeter_java_proto",
+#     deps = [":greeter_proto"],
+# )
+
+go_proto_library(
+    name = "greeter_go_proto",
+    importpath = "example.com/greeter_proto",
+    proto = ":greeter_proto",
+)
+
+# Generate Rust bindings from the generated proto files
+# https://bazelbuild.github.io/rules_rust/rust_proto.html#rust_prost_library
+rust_prost_library(
+    name = "greeter_rust_proto",
+    proto = ":greeter_proto",
+    visibility = ["//visibility:public"],
+)
