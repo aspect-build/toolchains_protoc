@@ -3,19 +3,23 @@ load("@aspect_rules_ts//ts:defs.bzl", "ts_project")
 
 ts_project(
     name = "main",
-    srcs = ["main.mts"],
+    srcs = [
+        "connect.mts",
+        "main.mts",
+    ],
     tsconfig = "//:tsconfig",
     deps = [
         "//:node_modules/@connectrpc/connect",
-        "//:node_modules/@connectrpc/connect-node",
+        "//:node_modules/@connectrpc/connect-fastify",
         "//:node_modules/@types/node",
+        "//:node_modules/fastify",
         "//:package_json",
         "//proto:greeter_ts_proto",
     ],
 )
 
 js_binary(
-    name = "client",
+    name = "server",
     data = [":main"],
     entry_point = "main.mjs",
 )

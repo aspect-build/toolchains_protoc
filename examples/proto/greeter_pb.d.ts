@@ -2,11 +2,7 @@
 // @generated from file proto/greeter.proto (package proto, syntax proto3)
 /* eslint-disable */
 
-import type {
-  GenFile,
-  GenMessage,
-  GenService,
-} from "@bufbuild/protobuf/codegenv1";
+import type { GenFile, GenMessage, GenService } from "@bufbuild/protobuf/codegenv1";
 import type { Message } from "@bufbuild/protobuf";
 import type { Any } from "@bufbuild/protobuf/wkt";
 
@@ -63,5 +59,6 @@ export declare const Greeter: GenService<{
     methodKind: "unary";
     input: typeof HelloRequestSchema;
     output: typeof HelloReplySchema;
-  };
+  },
 }>;
+
