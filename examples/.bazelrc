@@ -4,3 +4,5 @@ common --@aspect_rules_py//py:interpreter_version=3.9.18
 
 # Force rules_go to disable CGO even though we have a (fake) C++ toolchain registered.
 common --host_platform=//tools:no_cgo_host_platform
+common --@aspect_rules_ts//ts:skipLibCheck=always
+common --@aspect_rules_ts//ts:default_to_tsc_transpiler

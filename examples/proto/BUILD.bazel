@@ -1,3 +1,4 @@
+load("@aspect_rules_ts//ts:proto.bzl", "ts_proto_library")
 load("@rules_go//proto:def.bzl", "go_proto_library")
 load("@rules_proto//proto:defs.bzl", "proto_library")
 load("@rules_rust_prost//:defs.bzl", "rust_prost_library")
@@ -36,4 +37,12 @@ rust_prost_library(
     name = "greeter_rust_proto",
     proto = ":greeter_proto",
     visibility = ["//visibility:public"],
+)
+
+ts_proto_library(
+    name = "greeter_ts_proto",
+    gen_connect_es = False,
+    node_modules = "//:node_modules",
+    proto = ":greeter_proto",
+    proto_srcs = ["greeter.proto"],  # to copy greeter.d.ts back to the source tree
 )

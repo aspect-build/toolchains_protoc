@@ -14,7 +14,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         value: b"details".to_vec(),
     };
     let request = tonic::Request::new(HelloRequest {
-        name: "Hello gRPC".into(),
+        name: "Rust Client".into(),
         details: vec![detail],
     });
 
