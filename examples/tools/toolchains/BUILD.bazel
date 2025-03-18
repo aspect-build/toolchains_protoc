@@ -23,10 +23,10 @@ proto_lang_toolchain(
 rust_prost_toolchain(
     name = "prost_toolchain_impl",
     prost_plugin = "@crates//:protoc-gen-prost__protoc-gen-prost",
-    prost_runtime = "//rust:prost_runtime",
+    prost_runtime = "//tools:prost_runtime",
     prost_types = "@crates//:prost-types",
     tonic_plugin = "@crates//:protoc-gen-tonic__protoc-gen-tonic",
-    tonic_runtime = "//rust:tonic_runtime",
+    tonic_runtime = "//tools:tonic_runtime",
 )
 
 toolchain(
