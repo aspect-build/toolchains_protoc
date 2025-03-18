@@ -1,5 +1,7 @@
 load("@rules_proto//proto:defs.bzl", "proto_lang_toolchain")
 load("@rules_rust_prost//:defs.bzl", "rust_prost_toolchain")
+load("@rules_proto//proto:proto_toolchain.bzl", "proto_toolchain")
+load("@rules_proto_grpc//:defs.bzl", "proto_plugin")
 
 # Configure protoc to have the right arguments for generating Python stubs.
 # NB: the protobuf team intends to remove --python_out and instead use a protoc plugin for Python stub emit.
@@ -33,4 +35,37 @@ toolchain(
     name = "prost_toolchain",
     toolchain = "prost_toolchain_impl",
     toolchain_type = "@rules_rust_prost//:toolchain_type",
+)
+
+proto_plugin(
+    name = "proto_plugin",
+    exclusions = [
+        "google/protobuf",
+    ],
+    outputs = ["{protopath|python}_pb2.py"],
+    protoc_plugin_name = "python",
+    visibility = ["//visibility:public"],
+)
+
+proto_plugin(
+    name = "grpc_plugin",
+    exclusions = [
+        "google/protobuf",
+    ],
+    outputs = ["{protopath|python_grpc}_pb2_grpc.py"],
+    protoc_plugin_name = "grpc_python",
+    visibility = ["//visibility:public"],
+)
+
+proto_toolchain(
+    name = "prebuilt_protoc_toolchain_with_grpc_plugin",
+    proto_compiler = "//tools/grpcio_tools:protoc",
+)
+
+# https://github.com/aspect-build/toolchains_protoc/blob/e6ce32673fce191c6a0dd4a7752d0fcce73788f7/protoc/private/protoc_toolchains.bzl#L42
+toolchain(
+    name = "prebuilt_protoc_toolchain_with_grpc_plugin_proto_toolchain",
+    # Note _toolchain suffix
+    toolchain = ":prebuilt_protoc_toolchain_with_grpc_plugin",
+    toolchain_type = "@rules_proto//proto:toolchain_type",
 )

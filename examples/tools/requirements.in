@@ -1,1 +1,3 @@
 protobuf==5.28.0
+grpcio
+grpcio-tools

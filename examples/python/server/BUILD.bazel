@@ -1,0 +1,11 @@
+load("@aspect_rules_py//py:defs.bzl", "py_binary")
+
+py_binary(
+    name = "server",
+    srcs = ["__main__.py"],
+    main = "__main__.py",
+    deps = [
+        "//proto:greeter_py_grpc",
+        "@pypi//grpcio",
+    ],
+)
