@@ -1,0 +1,20 @@
+load("@rules_rust//rust:defs.bzl", "rust_binary")
+
+# Build binary
+# https://bazelbuild.github.io/rules_rust/defs.html#rust_binary
+rust_binary(
+    name = "server",
+    srcs = glob([
+        "src/*.rs",
+    ]),
+    crate_root = "src/main.rs",
+    rustc_flags = ["-Copt-level=0"],
+    visibility = ["//visibility:public"],
+    deps = [
+        # Internal crates
+        "//proto:greeter_rust_proto",
+        # External crates
+        "@crates//:tokio",
+        "@crates//:tonic",
+    ],
+)

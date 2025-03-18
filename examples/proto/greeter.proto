@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+// https://github.com/hyperium/tonic/blob/master/examples/proto/helloworld/helloworld.proto
+package proto;
+option go_package = "example.com/greeter_proto";
+option java_package = "proto";
+
+import "google/protobuf/any.proto";
+
+// The greeting service definition.
+service Greeter {
+    // Sends a greeting
+    rpc SayHello(HelloRequest) returns (HelloReply) {}
+}
+
+// The request message containing the user's name.
+message HelloRequest {
+    string name = 1;
+    repeated google.protobuf.Any details = 2;
+}
+
+// The response message containing the greetings
+message HelloReply {
+    string message = 1;
+}

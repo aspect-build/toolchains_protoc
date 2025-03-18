@@ -1,12 +1,12 @@
 import sys
 import unittest
 
-from _main import foo_pb2
+from proto import greeter_pb2
 
 class TestCase(unittest.TestCase):
     def test_message(self):
-        got = foo_pb2.Foo(
-            msg = "hello world",
+        got = greeter_pb2.HelloReply(
+            message = "hello world",
         )
         self.assertIsNotNone(got)
 

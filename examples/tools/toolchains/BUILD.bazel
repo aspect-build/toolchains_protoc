@@ -1,12 +1,5 @@
-"""Define a non-functional cc toolchain.
-
-To fail-fast in cases where we are forced to compile third-party C++ code,
-define a cc toolchain that doesn't work, by using 'false' as the compiler.
-See https://bazel.build/tutorials/ccp-toolchain-config
-"""
-
 load("@rules_proto//proto:defs.bzl", "proto_lang_toolchain")
-load("defs.bzl", "cc_toolchain_config")
+load("@rules_rust_prost//:defs.bzl", "rust_prost_toolchain")
 
 # Configure protoc to have the right arguments for generating Python stubs.
 # NB: the protobuf team intends to remove --python_out and instead use a protoc plugin for Python stub emit.
@@ -27,29 +20,17 @@ proto_lang_toolchain(
     toolchain_type = "@rules_java//java/proto:toolchain_type",
 )
 
-################
-# Setup a non-functional C++ toolchain, so we're assured that no C++ compilation
-# will be expected for engineers working in our repo.
-# That's the critical guarantee of toolchains_protoc
-filegroup(name = "empty")
-
-cc_toolchain_config(name = "noop_toolchain_config")
-
-cc_toolchain(
-    name = "noop_toolchain",
-    all_files = ":empty",
-    compiler_files = ":empty",
-    dwp_files = ":empty",
-    linker_files = ":empty",
-    objcopy_files = ":empty",
-    strip_files = ":empty",
-    supports_param_files = 0,
-    toolchain_config = ":noop_toolchain_config",
-    toolchain_identifier = "noop-toolchain",
+rust_prost_toolchain(
+    name = "prost_toolchain_impl",
+    prost_plugin = "@crates//:protoc-gen-prost__protoc-gen-prost",
+    prost_runtime = "//tools:prost_runtime",
+    prost_types = "@crates//:prost-types",
+    tonic_plugin = "@crates//:protoc-gen-tonic__protoc-gen-tonic",
+    tonic_runtime = "//tools:tonic_runtime",
 )
 
 toolchain(
-    name = "cc_toolchain",
-    toolchain = ":noop_toolchain",
-    toolchain_type = "@bazel_tools//tools/cpp:toolchain_type",
+    name = "prost_toolchain",
+    toolchain = "prost_toolchain_impl",
+    toolchain_type = "@rules_rust_prost//:toolchain_type",
 )

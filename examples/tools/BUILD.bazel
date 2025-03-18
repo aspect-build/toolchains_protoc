@@ -1,5 +1,23 @@
 load("@platforms//host:constraints.bzl", "HOST_CONSTRAINTS")
+load("@rules_rust//rust:defs.bzl", "rust_library_group")
 load("@rules_uv//uv:pip.bzl", "pip_compile")
+
+package(default_visibility = ["//tools/toolchains:__pkg__"])
+
+rust_library_group(
+    name = "prost_runtime",
+    deps = [
+        "@crates//:prost",
+    ],
+)
+
+rust_library_group(
+    name = "tonic_runtime",
+    deps = [
+        ":prost_runtime",
+        "@crates//:tonic",
+    ],
+)
 
 pip_compile(
     name = "generate_requirements_txt",
