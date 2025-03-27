@@ -17,13 +17,10 @@ py_proto_library(
     deps = [":greeter_proto"],
 )
 
-# Broken by https://github.com/protocolbuffers/protobuf/pull/19679
-# which causes building C++ code from source.
-# TODO: re-enable once protobuf honors the toolchain
-# java_proto_library(
-#     name = "greeter_java_proto",
-#     deps = [":greeter_proto"],
-# )
+java_proto_library(
+    name = "greeter_java_proto",
+    deps = [":greeter_proto"],
+)
 
 go_proto_library(
     name = "greeter_go_proto",

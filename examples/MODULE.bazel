@@ -66,8 +66,8 @@ http_jar = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "http_j
 
 http_jar(
     name = "protobuf-java",
-    sha256 = "0532ad1024d62361561acaedb974d7d16889e7670b36e23e9321dd6b9d334ef9",
-    urls = ["https://repo1.maven.org/maven2/com/google/protobuf/protobuf-java/4.27.0-RC3/protobuf-java-4.27.0-RC3.jar"],
+    integrity = "sha256-rSOIR3s7lplCQeZHMaE2iU3J/tbeufJ21ISosXGxRQw=",
+    urls = ["https://repo1.maven.org/maven2/com/google/protobuf/protobuf-java/4.28.0/protobuf-java-4.28.0.jar"],
 )
 
 ####### RUST ##########
