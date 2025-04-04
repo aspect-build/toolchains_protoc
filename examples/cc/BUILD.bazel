@@ -1,0 +1,7 @@
+load("@rules_cc//cc:defs.bzl", "cc_binary")
+
+cc_binary(
+    name = "cc",
+    srcs = ["greeter_example.cc"],
+    deps = ["//proto:greeter_cc_proto"],
+)

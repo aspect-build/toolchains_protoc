@@ -2,6 +2,7 @@ load("@aspect_rules_ts//ts:proto.bzl", "ts_proto_library")
 load("@rules_go//proto:def.bzl", "go_proto_library")
 load("@rules_proto//proto:defs.bzl", "proto_library")
 load("@rules_rust_prost//:defs.bzl", "rust_prost_library")
+load("@protobuf//bazel:cc_proto_library.bzl", "cc_proto_library")
 load("@protobuf//bazel:py_proto_library.bzl", "py_proto_library")
 
 package(default_visibility = ["//visibility:public"])
@@ -10,6 +11,11 @@ proto_library(
     name = "greeter_proto",
     srcs = ["greeter.proto"],
     deps = ["@com_google_protobuf//:any_proto"],
+)
+
+cc_proto_library(
+    name = "greeter_cc_proto",
+    deps = [":greeter_proto"],
 )
 
 py_proto_library(
