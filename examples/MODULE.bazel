@@ -38,8 +38,6 @@ protoc.toolchain(
 )
 use_repo(protoc, "com_google_protobuf", "toolchains_protoc_hub")
 
-register_toolchains("@toolchains_protoc_hub//:all")
-
 # NB: the `:all` here is critical, because `proto_lang_toolchain` expands into two targets:
 # - proto_lang_toolchain rule [name]
 # - toolchain rule [name]_toolchain
@@ -48,6 +46,8 @@ register_toolchains("@toolchains_protoc_hub//:all")
 # Misconfigured toolchains: //tools:protoc_java_toolchain is declared as a toolchain but has inappropriate dependencies.
 # Declared toolchains should be created with the 'toolchain' rule and should not have dependencies that themselves require toolchains.
 register_toolchains("//tools/toolchains:all")
+
+register_toolchains("@toolchains_protoc_hub//:all")
 
 ####### PYTHON ##########
 # Shows how a typical Python user fetches all the dependencies of their app, including the protobuf runtime
