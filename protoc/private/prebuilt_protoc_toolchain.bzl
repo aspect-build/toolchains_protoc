@@ -60,6 +60,7 @@ def _prebuilt_protoc_repo_impl(rctx):
 package(default_visibility = ["//visibility:public"])
 
 load("@rules_proto//proto:proto_toolchain.bzl", "proto_toolchain")
+load("@rules_proto//proto:defs.bzl", "proto_library")
 
 proto_toolchain(
     name = "prebuilt_protoc_toolchain",
