@@ -1,0 +1,89 @@
+From 755aafd6fa3de6ea507be6a7e5790c6b53e0e5f9 Mon Sep 17 00:00:00 2001
+From: Fabian Meumertzheim <fabian@meumertzhe.im>
+Date: Mon, 16 Dec 2024 15:55:24 +0100
+Subject: [PATCH 1/2] bazel: Remove hardcoded dependency on `//:protoc` from
+ language runtimes
+
+Without this change, language runtimes still result in a build of `//:protoc` even with a prebuilt `proto_toolchain` registered or `--proto_compiler` set to a precompiled protoc.
+---
+ bazel/private/BUILD |  6 ++++++
+ protobuf.bzl        | 13 +++++--------
+ 2 files changed, 11 insertions(+), 8 deletions(-)
+
+diff --git a/bazel/private/BUILD b/bazel/private/BUILD
+index 8c1c94ac8..a5b3abeda 100644
+--- a/bazel/private/BUILD
++++ b/bazel/private/BUILD
+@@ -1,4 +1,5 @@
+ load("@bazel_skylib//:bzl_library.bzl", "bzl_library")
++load(":current_protoc.bzl", "current_protoc")
+ load(":native_bool_flag.bzl", "native_bool_flag")
+ 
+ package(default_applicable_licenses = ["//:license"])
+@@ -28,6 +29,11 @@ toolchain_type(
+     visibility = ["//visibility:public"],
+ )
+ 
++current_protoc(
++    name = "current_protoc",
++    visibility = ["//:__subpackages__"],
++)
++
+ bzl_library(
+     name = "upb_proto_library_internal_bzl",
+     srcs = [
+diff --git a/protobuf.bzl b/protobuf.bzl
+index fdf09bd6b..736cc19cf 100644
+--- a/protobuf.bzl
++++ b/protobuf.bzl
+@@ -2,6 +2,7 @@ load("@bazel_skylib//lib:versions.bzl", "versions")
+ load("@rules_cc//cc:defs.bzl", "objc_library")
+ load("@rules_python//python:defs.bzl", "py_library")
+ load("//bazel/common:proto_info.bzl", "ProtoInfo")
++load("//bazel/private:current_protoc.bzl", "ProtocFilesToRun")
+ 
+ def _GetPath(ctx, path):
+     if ctx.label.workspace_root:
+@@ -310,7 +311,7 @@ def _internal_gen_well_known_protos_java_impl(ctx):
+             args.add_all([src.path[offset:] for src in dep.direct_sources])
+ 
+     ctx.actions.run(
+-        executable = ctx.executable._protoc,
++        executable = ctx.attr._protoc[ProtocFilesToRun].files_to_run,
+         inputs = descriptors,
+         outputs = [srcjar],
+         arguments = [args],
+@@ -335,9 +336,7 @@ internal_gen_well_known_protos_java = rule(
+             default = False,
+         ),
+         "_protoc": attr.label(
+-            executable = True,
+-            cfg = "exec",
+-            default = "//:protoc",
++            default = "//bazel/private:current_protoc",
+         ),
+     },
+ )
+@@ -373,7 +372,7 @@ def _internal_gen_kt_protos(ctx):
+             args.add_all([src.path[offset:] for src in dep.direct_sources])
+ 
+     ctx.actions.run(
+-        executable = ctx.executable._protoc,
++        executable = ctx.attr._protoc[ProtocFilesToRun].files_to_run,
+         inputs = descriptors,
+         outputs = [srcjar],
+         arguments = [args],
+@@ -398,9 +397,7 @@ internal_gen_kt_protos = rule(
+             default = False,
+         ),
+         "_protoc": attr.label(
+-            executable = True,
+-            cfg = "exec",
+-            default = "//:protoc",
++            default = "//bazel/private:current_protoc",
+         ),
+     },
+ )
+-- 
+2.49.0
+
