@@ -52,6 +52,18 @@ PROTOC_PLATFORMS = {
 
 # Synced from https://github.com/protocolbuffers/protobuf/releases:
 PROTOC_VERSIONS = {
+    "v31.1": {
+        "protoc-31.1-linux-aarch_64.zip": "sha384-loOEVuX/v2k1LduITVBaYvSD4GLjZDLbUHMLMjIu8rz6PKT5hYRuEUguUpz4aXIg",
+        "protoc-31.1-linux-ppcle_64.zip": "sha384-H9rRQAJA3XaKp6fj5UteZC/0kChTsdBpXgB+za4CuGUESnxEDuoljwB3ttMs1Ku9",
+        "protoc-31.1-linux-s390_64.zip": "sha384-CZyonNUaaDA3KXzebWe4f8AQgi6nsTE6JoUbjlP/qa9om7wZmDVvChWE7vOBx+MR",
+        "protoc-31.1-linux-x86_32.zip": "sha384-dzOb/Fxj9CHmgqcicB0uhkgWR5jG3Fk7JU1zAiwbrMNYf8zJe9YFwhbM7gsrdolx",
+        "protoc-31.1-linux-x86_64.zip": "sha384-ZMIFQOIMQmcBk9j7OYTKLIx+yjuMIjBIDZheMK2/e2KAMzFXADdFR6B+pyTPFGMz",
+        "protoc-31.1-osx-aarch_64.zip": "sha384-TRwc0xfKwTxrBzELpWTST3yCMtyyaOOihQlsyc28nHdBxsPNV+vEzcRJ3Hah5BPK",
+        "protoc-31.1-osx-universal_binary.zip": "sha384-w08weK/dV2Rs1kYtiUECJ9rxaR5ROP6kzN425zAU1UXdows9jVVA6oPxmKd8BSLv",
+        "protoc-31.1-osx-x86_64.zip": "sha384-hRgjD65v6p1C7UcxVXAOZrZAcBkFDGNrvO/Uhe5T/Thj6G5V9tdHXoDqHMCU3k4m",
+        "protoc-31.1-win32.zip": "sha384-x+WJWmUBGYUD8Ff89KX/Xr6qiGhhyUxKOcZvcvQmns1NQTFfHc8fHPr3t4ezUhfz",
+        "protoc-31.1-win64.zip": "sha384-cZ+b4GchBvIRlYHZgmtToHdxsLStALDXgVazFKaqvsCtJdCgV3jrzXeZ0T8TI729",
+    },
     "v25.8": {
         "protoc-25.8-linux-aarch_64.zip": "sha384-u9rkjpCrs+LR/4ESdGxGLi9oHuzBtTNm/XivIreRHDX7uEfqci5nMjnQd/zDv7/9",
         "protoc-25.8-linux-ppcle_64.zip": "sha384-UEXcOWrX3wVMxhVClw8VSgwtxCk/eyGrl0HqnD09x58pO3ZtsZkpk+SGPPdRoRX/",
