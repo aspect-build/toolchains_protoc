@@ -1,4 +1,5 @@
 load("@rules_proto//proto:defs.bzl", "proto_library")
+load("@rules_shell//shell:sh_test.bzl", "sh_test")
 
 proto_library(
     name = "foo_proto",
