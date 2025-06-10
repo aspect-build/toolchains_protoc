@@ -22,20 +22,16 @@ cat << EOF
 2. Add to your \`MODULE.bazel\` file:
 
 \`\`\`starlark
+# NB: this must come BEFORE bazel_dep(name = "protobuf") because they register the from-source toolchain,
+# and the first registration wins.
 bazel_dep(name = "toolchains_protoc", version = "${TAG:1}")
 
 # Optional: choose a version of protoc rather than the latest.
 protoc = use_extension("@toolchains_protoc//protoc:extensions.bzl", "protoc")
 protoc.toolchain(
-    # Creates a repository to satisfy well-known-types dependencies such as
-    # deps=["@com_google_protobuf//:any_proto"]
-    google_protobuf = "com_google_protobuf",
     # Pin to any version of protoc
     version = "v26.0",
 )
-use_repo(protoc, "com_google_protobuf", "toolchains_protoc_hub")
-
-register_toolchains("@toolchains_protoc_hub//:all")
 \`\`\`
 
 ## Using WORKSPACE

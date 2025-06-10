@@ -37,9 +37,7 @@ protoc.toolchain(
     # Demonstrate overriding the default version
     version = "v28.0",
 )
-use_repo(protoc, "com_google_protobuf", "toolchains_protoc_hub")
-
-register_toolchains("@toolchains_protoc_hub//:all")
+use_repo(protoc, "com_google_protobuf")
 
 # NB: the `:all` here is critical, because `proto_lang_toolchain` expands into two targets:
 # - proto_lang_toolchain rule [name]

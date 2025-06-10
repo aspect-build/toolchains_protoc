@@ -7,6 +7,8 @@ common --host_platform=//tools:no_cgo_host_platform
 common --@aspect_rules_ts//ts:skipLibCheck=always
 common --@aspect_rules_ts//ts:default_to_tsc_transpiler
 
+common --java_runtime_version=remotejdk_11
+
 # Ensure that we don't accidentally build protobuf or gRPC
 common --per_file_copt=external/.*protobuf.*@--PROTOBUF_WAS_NOT_SUPPOSED_TO_BE_BUILT
 common --host_per_file_copt=external/.*protobuf.*@--PROTOBUF_WAS_NOT_SUPPOSED_TO_BE_BUILT
