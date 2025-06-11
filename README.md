@@ -56,6 +56,16 @@ Enable the toolchain support by adding this to `.bazelrc`:
 common --incompatible_enable_proto_toolchain_resolution
 ```
 
+Make sure this module wins the toolchain registration for the
+[`@rules_proto//proto:toolchain_type` symbol](https://github.com/bazelbuild/rules_proto/blob/74961e561111a3510d5c25233477b950379ae06d/proto/BUILD#L58), either by ensuring the `bazel_dep` for `toolchains_protoc` is listed BEFORE the one for `protobuf`, or explicitly register the toolchain in your own `MODULE.bazel`:
+
+```
+# Override the toolchain registration from the protobuf module
+protoc = use_extension("@toolchains_protoc//protoc:extensions.bzl", "protoc")
+use_repo(protoc, "toolchains_protoc_hub")
+register_toolchains("@toolchains_protoc_hub//:all")
+```
+
 ### For each language, follow these steps
 
 Since the user installs the proto runtimes through their existing package manager setup,
@@ -99,8 +109,11 @@ See `examples` for several language rules like `py_proto_library` and `java_prot
 
 ### Troubleshooting
 
-What if you still see that protoc is compiling? This means that there is still a transitive dependency on the
-`com_google_protobuf` module, likely from some macro call in your `WORKSPACE` file.
+What if you still see that protoc is compiling?
+
+1. Check that toolchains_protoc `bazel_dep` is BEFORE `protobuf`, see Installation above.
+1. This could mean that there is still a transitive dependency on the
+   `com_google_protobuf` module, likely from some macro call in your `WORKSPACE` file.
 
 > TODO: explain how to track down where the `com_google_protobuf` dependency is coming from.
 
