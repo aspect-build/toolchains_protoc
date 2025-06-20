@@ -531,4 +531,14 @@ PROTOC_VERSIONS = {
         "protoc-3.20.2-win32.zip": "sha384-pf5YhoLDj50iKcaKl9iSIkg/dLOF0IbCrY1kr+vLiP2hSdye74xmDdCXJ0U+g8Dh",
         "protoc-3.20.2-win64.zip": "sha384-k1Zcl3BGULWpWOodds1IbzbbQNbViLgFaHW5rF6CihYdM0+lsKgns/mhrJZgd+o1",
     },
+    "v3.19.6": {
+        "protoc-3.19.6-linux-aarch_64.zip": "sha384-lTi0Jqvdszj8LX3ivN4+yz7+T+yNBFxW/3ApBVvJn6UePp6v6FOPWiB22UTzE1+a",
+        "protoc-3.19.6-linux-ppcle_64.zip": "sha384-gmS6JFinHFXeutHVO3qCJ0w49Vz4Cwj7zZPvnwjkhM40tjOWr7lA9+1ZWWOTNWqZ",
+        "protoc-3.19.6-linux-s390_64.zip": "sha384-TeDkZwFtVzWYpa7AXMwfGLnoTaNhRVdRW5XD3M6Ym94kkKmwvsxcqifhl86ZaJP6",
+        "protoc-3.19.6-linux-x86_32.zip": "sha384-Rji2o+jaOrSneYiSv75oaVLLIwdddcD9xsrS1mttLJALI0VALgGF9687PutvQrb3",
+        "protoc-3.19.6-linux-x86_64.zip": "sha384-BfvO5Rn1QIA29n+8yEcleJgwICy2GYWQHH13lTaY4ZMnvwbaNlOH38MB3gYJsdVL",
+        "protoc-3.19.6-osx-x86_64.zip": "sha384-915VkW15Ze2Wm5fArBgZJZK4iVDdn6k1MMCFGfARMYVRAL55YUXzJ+48sxfHxEBV",
+        "protoc-3.19.6-win32.zip": "sha384-h+rxQZzoXwT2ROz/Td/i9fVDmD8woXA+koBgA6NfwmDTCVwg+aEczeK0+Ta3qMZL",
+        "protoc-3.19.6-win64.zip": "sha384-LLKwJiK4ASsBGxeQCpl1UXzLE8GJW+9/GJnBQSdmLvE1nAEpVRR/j79XeihwVuvV",
+    },
 }
