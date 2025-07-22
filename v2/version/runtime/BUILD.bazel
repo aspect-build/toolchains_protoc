@@ -1,0 +1,4 @@
+constraint_value(
+    name = "3.21.12",
+    constraint_setting = "//version:runtime",
+)

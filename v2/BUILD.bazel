@@ -1,0 +1,33 @@
+load(":cc_proto_library.bzl", "cc_proto_library")
+
+cc_proto_library(
+    name = "proto"
+)
+
+config_setting(
+    name = "is_3_21_12",
+    flag_values = {
+        "//version:protoc": "3.21.12"
+    }
+)
+
+toolchain_type(
+    name = "cc_toolchain_type"
+)
+
+toolchain(
+    name = "cc_proto_lang_3_21_12",
+    toolchain_type = ":cc_toolchain_type",
+    toolchain = "@protobuf//:cc_toolchain",
+    exec_compatible_with = [
+        "@platforms//os:macos",
+        "@platforms//cpu:arm64",
+    ],
+    target_compatible_with = [
+        "@platforms//os:macos",
+        "@platforms//cpu:arm64",
+    ],
+    target_settings = [
+        ":is_3_21_12"
+    ]
+)

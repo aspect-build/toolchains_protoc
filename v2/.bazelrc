@@ -1,0 +1,2 @@
+common --cxxopt=-xc++ --host_cxxopt=-xc++ --cxxopt=-std=c++17 --host_cxxopt=-std=c++17 --client_env=BAZEL_CXXOPTS=-std=c++17
+common --nocheck_visibility
