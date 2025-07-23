@@ -1,9 +1,9 @@
 def _pb_version_transition_impl(settings, attr):
-    if attr.version:
-        return {
-            "//version:protoc": attr.version,
-        }
-    return {}
+    # This will loaded from a version.bzl file which
+    # protobuf releases will create with every release.
+    return {
+        "//version:protoc": "3.21.12",
+    }
 
 _pb_version_transition = transition(
     implementation = _pb_version_transition_impl,
@@ -20,13 +20,6 @@ def _cc_proto_library_impl(ctx):
 
 cc_proto_library = rule(
     implementation = _cc_proto_library_impl,
-    attrs = {
-        # This will loaded from a version.bzl file which
-        # protobuf releases will create with every release.
-        #
-        # TODO: should users be allowed to change this value?
-        "version": attr.string(default = "3.21.12"),
-    },
     toolchains = ["//:demo_toolchain_type"],
     cfg = _pb_version_transition,
 )
