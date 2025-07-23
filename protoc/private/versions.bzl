@@ -62,7 +62,7 @@ PROTOC_VERSIONS = {
         "protoc-29.5-osx-universal_binary.zip": "sha384-3vruSFrVFBIWrFZHn0H1p6g3auohFDdtf3Po+NT7tIN4YCW5NEO+2dLY2423iiME",
         "protoc-29.5-osx-x86_64.zip": "sha384-7wfj0ORGPdfnDNJTkEqszRhWGbP/JFnnXF9OM260tx2gUUW6arF7rQuPf8g50GwW",
         "protoc-29.5-win32.zip": "sha384-lIVxBD8V7GGY7VflR06WASoXvtF6La3jWSJdSGcnG1uIneIsN2wP8Fe7vvZcCVCS",
-        "protoc-29.5-win64.zip": "sha384-UtvhhG1MrYxkBNpg2wcKgsmXg8dmrltz8kT9OKC2gY8w5oLSx0d1UhCkVi/oUzAU"
+        "protoc-29.5-win64.zip": "sha384-UtvhhG1MrYxkBNpg2wcKgsmXg8dmrltz8kT9OKC2gY8w5oLSx0d1UhCkVi/oUzAU",
     },
     "v31.1": {
         "protoc-31.1-linux-aarch_64.zip": "sha384-loOEVuX/v2k1LduITVBaYvSD4GLjZDLbUHMLMjIu8rz6PKT5hYRuEUguUpz4aXIg",
