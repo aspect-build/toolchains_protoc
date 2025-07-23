@@ -1,9 +1,14 @@
 def _pb_version_transition_impl(settings, attr):
-    # This will loaded from a version.bzl file which
-    # protobuf releases will create with every release.
-    return {
-        "//version:protoc": "3.21.12",
-    }
+    is_bcr_release = False  # there's some way to detect
+    if is_bcr_release:
+        # This will loaded from a version.bzl file which
+        # protobuf releases will create with every release.
+        return {
+            "//version:protoc": "3.21.12",
+        }
+
+    # Transition is not needed
+    return {}
 
 _pb_version_transition = transition(
     implementation = _pb_version_transition_impl,
