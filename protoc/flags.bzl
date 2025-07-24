@@ -1,3 +1,5 @@
+"""bazelrc presets for https://github.com/bazel-contrib/bazelrc-preset.bzl"""
+
 PROTOC_TOOLCHAIN_FLAGS = {
     "incompatible_enable_proto_toolchain_resolution": struct(
         default = True,
