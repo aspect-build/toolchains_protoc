@@ -14,7 +14,7 @@ PROTOC_TOOLCHAIN_FLAGS = {
         default = "external/.*protobuf.*@--PROTOBUF_WAS_NOT_SUPPOSED_TO_BE_BUILT",
         description = "Make sure protobuf is not built from source",
     ),
-    "per_file_copt_grpc": struct(
+    "per_file_copt": struct(
         default = "external/.*grpc.*@--GRPC_WAS_NOT_SUPPOSED_TO_BE_BUILT",
         description = "Make sure grpc is not built from source",
     ),
