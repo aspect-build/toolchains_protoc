@@ -29,6 +29,20 @@ common --per_file_copt=external/.*grpc.*@--GRPC_WAS_NOT_SUPPOSED_TO_BE_BUILT
 common --host_per_file_copt=external/.*grpc.*@--GRPC_WAS_NOT_SUPPOSED_TO_BE_BUILT
 ```
 
+or if you are using [bazelrc-preset.bzl](https://github.com/bazel-contrib/bazelrc-preset.bzl), you can extend your presets using the `PROTOC_TOOLCHAIN_FLAGS` preset defined in this repository.
+
+```starlark
+load("@bazelrc-preset.bzl", "bazelrc_preset")
+load("@toolchains_protoc//protoc:flags.bzl", "PROTOC_TOOLCHAIN_FLAGS")
+
+bazelrc_preset(
+    name = "preset",
+    extra_presets = PROTOC_TOOLCHAIN_FLAGS,
+)
+```
+
+Once you update your presets, all necessary flags will be added to your preset bazelrc.
+
 ## Support matrix
 
 Minimum versions:
