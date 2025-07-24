@@ -18,7 +18,7 @@ PROTOC_TOOLCHAIN_FLAGS = {
         default = "external/.*grpc.*@--GRPC_WAS_NOT_SUPPOSED_TO_BE_BUILT",
         description = "Make sure grpc is not built from source",
     ),
-    "host_per_file_copt_grpc": struct(
+    "host_per_file_copt": struct(
         default = "external/.*grpc.*@--GRPC_WAS_NOT_SUPPOSED_TO_BE_BUILT",
         description = "Make sure grpc is not built from source",
     ),
