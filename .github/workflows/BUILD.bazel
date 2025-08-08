@@ -2,6 +2,7 @@ load("@buildifier_prebuilt//:rules.bzl", "buildifier")
 
 buildifier(
     name = "buildifier.check",
+    args = ["--warnings=unsorted-dict-items"],
     exclude_patterns = ["./.git/*"],
     lint_mode = "warn",
     mode = "diff",

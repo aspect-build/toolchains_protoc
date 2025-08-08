@@ -34,6 +34,7 @@ def _proto_extension_impl(module_ctx):
 protoc = module_extension(
     implementation = _proto_extension_impl,
     tag_classes = {
+        # buildifier: disable=unsorted-dict-items
         "toolchain": tag_class(attrs = {
             "name": attr.string(doc = """\
                 Base name for generated repositories, allowing more than one toolchain to be registered.
