@@ -3,27 +3,28 @@ load("@bazel_skylib//rules:common_settings.bzl", "string_setting")
 package(default_visibility = ["//visibility:public"])
 
 # https://github.com/bazelbuild/bazel/issues/16976#issuecomment-1363325329
-
-
 # Modeling the Cross-Version Runtime Guarantee using Bazel toolchains is doable
 # but not trivial to get right due to lack of version range selection when using
 # build-setting combined with `target_settings` or constraint_setting combined with
 # exec_compatible_with and target_compatible_with.
 
-
-# # protoc constraint that represents the "Generated Code Version" requirement
-# # in the cross version runtime guarantee matrix.
-# constraint_setting(name = "protoc")
-
-# # similarly runtime constraint represents the "Runtime Version" in the compatibility
-# # matrix.
-# constraint_setting(name = "runtime")
-
-
-# This will loaded from a version.bzl file which
-# protobuf releases will create with every release.
+# Representing the major version of the protoc compiler.
 string_setting(
-    name = "protoc",
-    build_setting_default = "3.21.12",
+    name = "protoc_major",
+    build_setting_default = "",
+    visibility = ["//visibility:public"],
+)
+
+# Representing the minor version of the protoc compiler.
+string_setting(
+    name = "protoc_minor",
+    build_setting_default = "",
+    visibility = ["//visibility:public"],
+)
+
+# Representing the patch version of the protoc compiler.
+string_setting(
+    name = "protoc_patch",
+    build_setting_default = "",
     visibility = ["//visibility:public"],
 )

@@ -1,15 +1,60 @@
 load(":cc_proto_library.bzl", "cc_proto_library")
+load("@bazel_skylib//lib:selects.bzl", "selects")
 
 cc_proto_library(
     name = "proto",
 )
 
 config_setting(
-    name = "is_3_21_12",
-    flag_values = {
-        "//version:protoc": "3.21.12",
-    },
+    name = "is_major_3",
+    flag_values = {"//version:protoc_major": "3"},
 )
+config_setting(
+    name = "is_minor_21",
+    flag_values = {"//version:protoc_minor": "21"},
+)
+config_setting(
+    name = "is_patch_12",
+    flag_values = {"//version:protoc_patch": "12"},
+)
+
+
+selects.config_setting_group(
+    name = "is_3",
+    match_all = [":is_major_3"],
+)
+
+selects.config_setting_group(
+    name = "is_3_21",
+    match_all = [
+        ":is_major_3",
+        ":is_minor_21",
+    ],
+)
+
+selects.config_setting_group(
+    name = "is_3_21_12",
+    match_all = [
+        ":is_major_3",
+        ":is_minor_21",
+        ":is_patch_12",
+    ],
+)
+
+# This config setting will satify the following configurations
+#
+# A transition that sets major version to 3
+# A transition that sets major.minor version to 3.21
+# A transition that sets major.minor.patch version to 2.21.12
+selects.config_setting_group(
+    name = "semver_3_21_12",
+    match_any = [
+        ":is_3",
+        ":is_3_21",
+        ":is_3_21_12",
+    ],
+)
+
 
 toolchain_type(
     name = "demo_toolchain_type",
@@ -26,7 +71,7 @@ toolchain(
         "@platforms//cpu:arm64",
     ],
     target_settings = [
-        ":is_3_21_12",
+        ":semver_3_21_12"
     ],
     toolchain = "@protobuf//:cc_toolchain",
     toolchain_type = ":demo_toolchain_type",
