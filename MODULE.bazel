@@ -2,7 +2,6 @@
 
 module(
     name = "toolchains_protoc",
-    version = "0.0.0",
     compatibility_level = 1,
 )
 
