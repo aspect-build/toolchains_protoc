@@ -2,6 +2,9 @@
 workspaces:
   - .
   - examples
+bazel:
+  flags:
+    - --config=ci
 tasks:
   - test:
 notifications:
