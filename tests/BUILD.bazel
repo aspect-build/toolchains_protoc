@@ -1,0 +1,7 @@
+load("@bazelrc-preset.bzl", "bazelrc_preset_test")
+load("//protoc:flags.bzl", "PROTOC_TOOLCHAIN_FLAGS")
+
+bazelrc_preset_test(
+    name = "test_protoc_toolchain_flags",
+    extra_presets = PROTOC_TOOLCHAIN_FLAGS,
+)
