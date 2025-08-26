@@ -70,9 +70,9 @@ python3 -c "import json; exec(open('$VERSIONS_BZL').read()); print(json.dumps(PR
 
 # Locate the PROTOC_VERSIONS declaration in the source file and replace it with a merge of both data sources
 NEW=$(mktemp)
-sed '/PROTOC_VERSIONS =/Q' $VERSIONS_BZL > $NEW
+awk '/PROTOC_VERSIONS =/ {exit} {print}' $VERSIONS_BZL > $NEW
 echo -n "PROTOC_VERSIONS = " >> $NEW
-jq --slurp '.[0] * .[1]' $NEW_VERSION $EXISTING_VERSIONS >> $NEW
+jq --slurp '.[1] * .[0]' $NEW_VERSION $EXISTING_VERSIONS >> $NEW
 cp $NEW $VERSIONS_BZL
 
 echo "Done, see updates in $VERSIONS_BZL"
