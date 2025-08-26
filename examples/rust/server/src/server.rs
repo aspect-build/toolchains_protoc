@@ -21,7 +21,7 @@ impl Greeter for MyGreeter {
         println!("Got a request from {:?}", request.remote_addr());
 
         let reply = HelloReply {
-            message: format!("Hello {}!", request.into_inner().name),
+            message: format!("Hello {}, I am Rust server", request.into_inner().name),
         };
         Ok(Response::new(reply))
     }
