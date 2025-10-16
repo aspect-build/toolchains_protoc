@@ -613,4 +613,16 @@ PROTOC_VERSIONS = {
         "protoc-33.0-rc-2-win32.zip": "sha384-5PD530LzA7otnuHwVl39kJh4IXVAse1UfJ6hoCpmYU1Qcp0nfVlxZqQ9EZ4ls5wj",
         "protoc-33.0-rc-2-win64.zip": "sha384-1Qyim4hTMmZeECYF+5fCwewohWG0uOsWf1DP0PYM6v2qV6i3pXnaVGLu6N6mrkSQ",
     },
+    "v33.0": {
+        "protoc-33.0-linux-aarch_64.zip": "sha384-ieKPJROa0+9qIM84IceW8IlPlZVlKl+aEavLFTlmO+6QRHN50kRwQEHOC4CADucP",
+        "protoc-33.0-linux-ppcle_64.zip": "sha384-X25g/gC+bbcc80PcOVUs6XyZlLA7r4QQr94KpR7P2tYYYRDy8hmQwtOfMF3recE5",
+        "protoc-33.0-linux-s390_64.zip": "sha384-4i2784V0LIzfvP234duI3jT6Si6bZ0IzT3FDc6YMox92nmwfTx70P+D0zzslMW3Q",
+        "protoc-33.0-linux-x86_32.zip": "sha384-FWeHkUHetlEMeg/k0McZU3AOQ9otrhN8gbE1MdlBN/GhZsfjosqaRPoP6PH6S+H+",
+        "protoc-33.0-linux-x86_64.zip": "sha384-yzv4liTJF6ocvCGn2qW0xvnX/KU6PHOTqL8E/y9Mjf6FLPIGiyPR4JT98oL/2aTQ",
+        "protoc-33.0-osx-aarch_64.zip": "sha384-rjw/vCtgPZn1XR3wTW2geoBQ1pSO2euFkCEfA75NpD91dMtWD9wq3ldZB7eRMTFi",
+        "protoc-33.0-osx-universal_binary.zip": "sha384-ywSIV9ES+/wgQkyZ5g1Tq0qrPu2BoBSlhVQs5BZb08rnfWJXRuxIVoKVD4UxTCV8",
+        "protoc-33.0-osx-x86_64.zip": "sha384-Pzk9MRv8gqr38T/opKYVImbCfA3K/oDLYO1IJSM9RqB9P0uLyuXksd+G4Logf8Uh",
+        "protoc-33.0-win32.zip": "sha384-LKppG+pkBl+vGhYhETSJJop3vKP7f6tgFXDI4OAMNwArY/E68nrKTCxFcpnzo2lc",
+        "protoc-33.0-win64.zip": "sha384-92kkrMibOcb4vJLjPo867pSjCVC07RFNRJ3DMPV02YHFy2F/Tjhrgt5+Gp8JqbLy",
+    },
 }
