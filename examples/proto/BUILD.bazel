@@ -1,8 +1,8 @@
 load("@aspect_rules_ts//ts:proto.bzl", "ts_proto_library")
-load("@rules_go//proto:def.bzl", "go_proto_library")
 load("@rules_proto//proto:defs.bzl", "proto_library")
 load("@rules_rust_prost//:defs.bzl", "rust_prost_library")
 load("@protobuf//bazel:py_proto_library.bzl", "py_proto_library")
+load("//tools:go_proto_library.bzl", "go_proto_library")
 
 package(default_visibility = ["//visibility:public"])
 
