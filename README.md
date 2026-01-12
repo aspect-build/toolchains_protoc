@@ -1,5 +1,10 @@
 # Pre-built protoc toolchain for Bazel
 
+> [!WARNING]
+> This feature has been upstreamed into protobuf@33.4
+> Just set --@protobuf//bazel/toolchains:prefer_prebuilt_protoc
+> (And prior to Bazel 9, also set --incompatible_enable_proto_toolchain_resolution)
+
 _#NeverCompileProtocAgain_
 
 Using Protocol Buffers with Bazel has always been difficult.
